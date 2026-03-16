@@ -14,6 +14,7 @@ A full-stack chat chat application with a goal of sending messages to individual
 - JWT (Token authentication)
 - Bcrypt (Password Hashing)
 - Socket.io (websockets)
+- Docker
 - Trello (Project Management/Kanban Board)
 
 ### User Stories
