@@ -67,3 +67,11 @@ A full-stack chat chat application with a goal of sending messages to individual
     - updates message
 - DELETE /message/:id
     - deletes message from database
+
+### Figma Design
+
+#### Onboarding Design
+
+Using Figma's simple design components. Created 3 different states (initial, success, error) for both login and register forms. No focus styling at the moment due to constraints of knowledge using Figma. Will have to make components in different states for buttons and inputs fields. However, form validation and errors are provided along with button responsives to user actions are provided. 
+
+![Onoarding Screenshots](./project-images/onboarding.png)
