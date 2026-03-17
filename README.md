@@ -35,3 +35,20 @@ A full-stack chat chat application with a goal of sending messages to individual
 
 ### Database Schema (In Progress)
 ![Screenshot of database schema](./project-images/schema.jpg)
+
+
+### API Endpoints
+
+#### User
+- POST /register
+    - Registers new user
+    - Sends JWT token in cookie to client
+- POST /login
+    - Validates user credentials
+    - Sends JWT token in cookie to client
+
+#### Message
+- POST /message
+    - Adds new message with user_id for both sender and recipient. Message text is required. Img url (media) is not
+- GET /message/:id
+    - retrieves all messages sent to and received by recipient.
