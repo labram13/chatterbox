@@ -33,8 +33,15 @@ A full-stack chat chat application with a goal of sending messages to individual
 |P2| As a server admin, I want the ability to edit server details and server population. | Give server creator admin privileges.| Create Role-Based-Actions for CRUD operations with servers using authorization methods (Admin, Viewer, Editor).
 
 
+### Workflow Diagram
+![Workflow Diagram](./project-images/workflow.jpg)
+
+
 ### Database Schema (In Progress)
 ![Screenshot of database schema](./project-images/schema.jpg)
+
+
+
 
 
 ### API Endpoints
@@ -52,3 +59,8 @@ A full-stack chat chat application with a goal of sending messages to individual
     - Adds new message with user_id for both sender and recipient. Message text is required. Img url (media) is not
 - GET /message/:id
     - retrieves all messages sent to and received by recipient.
+
+- PUT /message/:id
+    - updates message
+- DELETE /message/:id
+    - deletes message from database
