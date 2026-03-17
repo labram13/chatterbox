@@ -59,7 +59,6 @@ A full-stack chat chat application with a goal of sending messages to individual
     - Adds new message with user_id for both sender and recipient. Message text is required. Img url (media) is not
 - GET /message/:id
     - retrieves all messages sent to and received by recipient.
-
 - PUT /message/:id
     - updates message
 - DELETE /message/:id
