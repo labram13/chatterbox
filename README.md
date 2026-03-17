@@ -33,12 +33,16 @@ A full-stack chat chat application with a goal of sending messages to individual
 |P2| As a server admin, I want the ability to edit server details and server population. | Give server creator admin privileges.| Create Role-Based-Actions for CRUD operations with servers using authorization methods (Admin, Viewer, Editor).
 
 
-### Workflow Diagram
+### Workflow Diagram (In Progress)
 ![Workflow Diagram](./project-images/workflow.jpg)
+
+### Dataflow Diagram
+![Dataflow Diagram](./project-images/dataflow.jpg)
 
 
 ### Database Schema (In Progress)
 ![Screenshot of database schema](./project-images/schema.jpg)
+
 
 
 
