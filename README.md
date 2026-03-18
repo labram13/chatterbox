@@ -72,6 +72,24 @@ A full-stack chat chat application with a goal of sending messages to individual
 
 #### Onboarding Design
 
-Using Figma's simple design components. Created 3 different states (initial, success, error) for both login and register forms. No focus styling at the moment due to constraints of knowledge using Figma. Will have to make components in different states for buttons and inputs fields. However, form validation and errors are provided along with button responsives to user actions are provided. 
+Using Figma's simple design components. Created 3 different states (initial, success, error) for both login and register forms. No focus styling at the moment due to constraints of knowledge using Figma. Will have to make components in different states for buttons and inputs fields. However, form validation and errors are provided along with button responsives to user actions are provided. Note that only mobile designs are provided. No styling will be changed throughout different media queries other than changing desktop fontsize.
 
+##### Components
+
+###### Login Button States (Default, Focus, Hover, Click, Success, Disabled)
+
+![Login Button States](./project-images/Button.png)
+
+###### Input Field States (Default, Focus, Error, Success)
+
+![Input Field States](./project-images/input-field.png)
+
+##### Mobile
 ![Onoarding Screenshots](./project-images/onboarding.png)
+
+
+
+
+##### Desktop
+
+![Desktop Onboarding](./project-images/desktop-login.png)
