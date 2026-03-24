@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  server:
+    build:
+      context: ./server
+    ports:
+      - "3001:3001"
+    develop:
+      watch:
+        - action: sync
+          path: ./server/src
+          target: /server/src
+          initial_sync: true
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./server/package.json

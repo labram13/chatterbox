@@ -1,6 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import pool from './config/db'
+// import pool from './config/db'
 
 const app = express()
 app.use(cookieParser())
@@ -27,7 +27,7 @@ type User = {
 
 app.get('/', (req, res) => {
     const tessa: User = {
-        username: "test",
+        username: "test1",
         age: 12
     }
     res.status(200).json({status: "test", tessa})
