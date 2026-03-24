@@ -54,7 +54,9 @@ A full-stack chat chat application with a goal of sending messages to individual
 #### User
 - POST /register
     - Registers new user
-    - Sends JWT token in cookie to client
+    - Generates Access token and Refresh token
+    - Adds refresh token to DB
+    - Sends access and refresh token to user via cookie
 - POST /login
     - Validates user credentials
     - Sends JWT token in cookie to client
