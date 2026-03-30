@@ -1,5 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
 // import pool from './config/db'
 
 const app = express()
@@ -7,7 +8,7 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-const PORT = 3001;
+const PORT = process.env.PORT;
 
 
 
@@ -27,7 +28,7 @@ type User = {
 
 app.get('/', (req, res) => {
     const tessa: User = {
-        username: "test1",
+        username: "test2",
         age: 12
     }
     res.status(200).json({status: "test", tessa})
