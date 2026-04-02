@@ -1,7 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
-// import pool from './config/db'
+import pool from './config/db'
 
 const app = express()
 app.use(cookieParser())
@@ -12,13 +12,14 @@ const PORT = process.env.PORT;
 
 
 
-// pool.query('SELECT NOW()', (err, res) => {
-//   if (err) {
-//     console.error('Database connection failed:', err.message);
-//   } else {
-//     console.log('Connected to PostgreSQL at:', res.rows[0].now);
-//   }
-// });
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Database connection failed:', err.message);
+  } else {
+    console.log('Connected to PostgreSQL at:', res.rows[0].now);
+  }
+});
+
 
 
 type User = {
@@ -26,12 +27,21 @@ type User = {
     age: number
 };
 
-app.get('/', (req, res) => {
-    const tessa: User = {
-        username: "test2",
-        age: 12
+app.get('/', async (req, res) => {
+    // const tessa: User = {
+    //     username: "test1",
+    //     age: 32
+    // }
+    // res.status(200).json({status: "test", tessa})
+    try {
+        const result = await pool.query('select * from users')
+        res.json(result.rows)
+
+
+    } catch (error) {
+        res.status(500).json({status: "error"})
     }
-    res.status(200).json({status: "test", tessa})
+    
     
 
     

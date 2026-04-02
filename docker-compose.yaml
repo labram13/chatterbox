@@ -1,13 +1,30 @@
-version: "3.9"
-
 services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   server:
+    depends_on:
+      - db
     build:
       context: ./server
     ports:
       - "3001:3001"
     environment:
-      - PORT=3001
+      PORT: 3001
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: labradml
+      DB_PASS: pass
+      DB_NAME: chatterbox_db
     develop:
       watch:
         - action: sync
@@ -18,3 +35,16 @@ services:
             - node_modules/
         - action: rebuild
           path: ./server/package.json
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: labradml
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: chatterbox_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
