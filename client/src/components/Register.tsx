@@ -12,12 +12,13 @@ type FormValues = {
 }
 export default function Register() {
     const form = useForm<FormValues>()
-    const { register, control, handleSubmit, formState} = form
+    const { register, control, handleSubmit, formState, setError, watch} = form
     const { errors } = formState;
+
 
     const onSubmit = (data: FormValues) => {
 
-        console.log(data)
+     console.log(data)
 
     }
 
@@ -78,6 +79,19 @@ export default function Register() {
     
                 })}/>
                 <p className='error'>{errors.password?.message}</p>
+
+                <div className='input'>
+                    <input type='password' id='confirm-password' placeholder='Re-type Password' {...register('confirmPassword', {
+                        required: {
+                            value: true,
+                            message: "Confirm password"
+                        },
+                        validate: (value) => 
+                            value === watch('password') || "Passwords do not match"
+                    })}/>
+                    <p className='error'>{errors.confirmPassword?.message}</p>
+
+                </div>
             </div>
           
             <button type='submit'>Register</button>
