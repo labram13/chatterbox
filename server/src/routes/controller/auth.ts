@@ -55,17 +55,34 @@ router.post('/', async (req, res) => {
         [newUser.email, newUser.username, hashedPassword]
     )
 
-    const user = addUser.rows[0]
-    const {password, ...userWithoutPassword} = user
-    const accessToken = generateAccessToken(userWithoutPassword)
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!)
+    const userInfo = addUser.rows[0]
+    const {password, ...user} = userInfo
+    const accessToken = generateAccessToken(user)
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!, {expiresIn: '15m'})
+
+    const addRefreshToken = await pool.query(
+        'INSERT INTO refresh_tokens(user_id, token) VALUES ($1, $2)', 
+        [user.user_id, refreshToken]
+    )
 
     
-    res.status(200).json({status: 'success'})
+    res.cookie('accessToken', accessToken, {
+        httpOnly: true, 
+        secure: true,
+        sameSite: 'strict', 
+        maxAge: 5 * 1000
+    })
+
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict', 
+        maxAge: 15 * 60 * 1000
+    }).status(200).json({status: 'success'})
 })
 
 function generateAccessToken(user: User) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '15s'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '5s'})
 }
 
 

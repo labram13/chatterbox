@@ -35,7 +35,7 @@ export default  function Register() {
         const responseJson = await response.json();
 
         if (response.ok) {
-            
+            console.log("success")
 
         } else {
             if (responseJson.message === "user exists") {
