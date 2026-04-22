@@ -1,6 +1,7 @@
-import './Onboarding.css'
+import '../css/Onboarding.css'
 import Logo from '../assets/chatterbox.svg?react'
 import { useForm } from 'react-hook-form'
+import {Link} from 'react-router-dom'
 
 
 type FormValues = {
@@ -126,6 +127,11 @@ export default  function Register() {
                 </div>
           
             <button type='submit'>Register</button>
+             <div className='prompt-user'>
+                Already have an account? &nbsp;
+                <Link className='nav' to='/login'>Login</Link>
+
+            </div>
 
         </form>
     )

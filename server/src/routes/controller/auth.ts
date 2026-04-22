@@ -37,9 +37,7 @@ router.post('/register', async (req, res) => {
             'SELECT * FROM users where username = $1',
             [newUser.username]
         )
-        
-        // console.log(usernameExists.rows)
-        
+                
         if (usernameExists.rows.length !== 0) {
             return res.status(400).json({message: "user exists"})
         }
@@ -66,8 +64,6 @@ router.post('/register', async (req, res) => {
         const {password, ...user} = userInfo
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!, {expiresIn: '15m'})
-
-        console.log(user)
         
         const addRefreshToken = await pool.query(
             'INSERT INTO refresh_tokens(user_id, token) VALUES ($1, $2)', 
@@ -115,7 +111,6 @@ router.post('/login', async (req, res) => {
         }
 
         const {password, ...user} = userInfo.rows[0]
-        console.log(user)
 
         const comparePass = await bcrypt.compare(userCredentials.password, password)
 

@@ -1,6 +1,7 @@
-import './Onboarding.css'
+import '../css/Onboarding.css'
 import Logo from '../assets/chatterbox.svg?react'
 import {useForm} from 'react-hook-form'
+import {Link} from 'react-router-dom'
 
 
 interface Credentials {
@@ -78,7 +79,11 @@ export default function Login() {
             </div>
 
             <button type='submit'>Login</button>
+            <div className='prompt-user'>
+                Don't have an account? &nbsp;
+                <Link className='nav' to='/register'>Register</Link>
 
+            </div>
         </form>
     )
 }

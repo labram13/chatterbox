@@ -2,7 +2,9 @@ form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    border: solid #d9d9d9;
+    /* box-shadow: 2px 2px 5px gray; */
+    box-shadow: 0 0 5px lightgray;
+    background-color: white;
     width: 328px;
     padding: .75rem;
     margin: 1.5rem;
@@ -75,3 +77,15 @@ label {
     font-weight: bold;
     font-size: .75rem;
 }
+
+.nav {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-decoration-line: underline;
+}
+
+.prompt-user {
+    font-size: 0.8rem;
+}   
+
