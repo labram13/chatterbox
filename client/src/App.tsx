@@ -4,31 +4,36 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Dashboard from './components/Dashboard'
 
-function RequireAuth() {
-  const test = true;
 
-  if (test) {
-    return <Outlet />
-  } else {
-    return <Navigate to ='/login'/>
-  }
+
+function isAuthenticated() {
+  return false
 }
 
-const isAuthenticated = true
+function AuthCheckDashboard() {
+
+  return isAuthenticated() ? <Outlet /> : <Navigate to='/login'/>
+}
+
+function AuthCheckLoginRegister() {
+  return isAuthenticated() ? <Navigate to='/dashboard' /> : <Outlet /> 
+}
 
 function App() {
 
   return (
     <div className="container">
       <Routes>
-        <Route path='/' element={<Navigate to={isAuthenticated ? '/dashboard' : '/login'} />}/>
+        <Route path='/' element={<Navigate to={isAuthenticated() ? '/dashboard' : '/login'} />}/>
 
-        <Route element={<RequireAuth />}>
+        <Route element={<AuthCheckDashboard />}>
           <Route path="/dashboard" element={<Dashboard />}/>
         </Route>
 
-        <Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard'/> : <Login />}/>
-        <Route path='/register' element={isAuthenticated ? <Navigate to='/dashboard'/> : <Register />}/>
+        <Route element={<AuthCheckLoginRegister />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+        </Route>
 
       </Routes>
     </div>

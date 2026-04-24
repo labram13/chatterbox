@@ -20,7 +20,7 @@ export default  function Register() {
     const onSubmit = async (data: FormValues) => {
         const {confirmPassword, ...newUser}:FormValues = data
 
-        const response = await fetch('http://localhost:3001/api/auth/register', {
+        const response = await fetch('http://localhost:3001/api/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

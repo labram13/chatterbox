@@ -3,6 +3,7 @@ import pool from '../../config/db'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import {authenticateToken} from '../../middleware/auth'
 dotenv.config()
 
 const router = express.Router();
@@ -150,6 +151,12 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         res.status(500).json({error: error})
     }
+})
+
+
+router.post('/verify', authenticateToken, async (req, res) => {
+    console.log('hit /verify')
+    res.status(200).json({status: "success"})
 })
 
 function generateAccessToken(user: User) {
