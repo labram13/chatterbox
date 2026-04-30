@@ -2,6 +2,8 @@ import '../css/Onboarding.css'
 import Logo from '../assets/chatterbox.svg?react'
 import { useForm } from 'react-hook-form'
 import {Link, useNavigate} from 'react-router-dom'
+import type {Dispatch, SetStateAction} from 'react'
+
 
 
 type FormValues = {
@@ -11,7 +13,11 @@ type FormValues = {
     confirmPassword?: string,
 }
 
-export default  function Register() {
+interface SetLoginStatus {
+    setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
+}
+
+export default  function Register(props: SetLoginStatus) {
     const form = useForm<FormValues>()
     const { register, handleSubmit, formState, setError, watch} = form
     const { errors } = formState;
@@ -35,6 +41,7 @@ export default  function Register() {
         const responseJson = await response.json();
 
         if (response.ok) {
+            props.setIsLoggedIn(true)
             navigate('/dashboard')
 
         } else {

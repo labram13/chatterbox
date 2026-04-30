@@ -48,7 +48,7 @@ function App() {
 
         <Route element={<AuthCheckLoginRegister />}>
           <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path='/register' element={<Register />} />
+          <Route path='/register' element={<Register setIsLoggedIn={setIsLoggedIn}/>} />
         </Route>
 
       </Routes>

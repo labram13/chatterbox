@@ -1,7 +1,7 @@
 import '../css/Onboarding.css'
 import Logo from '../assets/chatterbox.svg?react'
 import {useForm} from 'react-hook-form'
-import {Link, useNavigate, useOutletContext} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import type {Dispatch, SetStateAction} from 'react'
 
 
