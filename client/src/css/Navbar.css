@@ -1,0 +1,13 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style-type: none;
+    align-items: center;
+    background-color: green;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 80px;
+
+}

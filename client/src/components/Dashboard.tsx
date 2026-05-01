@@ -1,15 +1,13 @@
-import React from 'react'
+import Navbar from './Navbar'
+import {Outlet} from 'react-router-dom'
 
+import '../css/Dashboard.css'
 
 export default function Dashboard() {
     return (
-
-        <p>
-        home
-        </p>
+        <div className='dash-container'>
+            <Navbar />
+            <Outlet />
+        </div>
     )
-
 }
-
-
-

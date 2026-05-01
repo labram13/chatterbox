@@ -1,0 +1,10 @@
+.dash-container {
+    height: inherit;
+    width: 100vw;
+    background-color: red;
+    display: flex;
+    flex-direction: column-reverse;
+    top: -80px;
+    position: relative;
+    
+}
