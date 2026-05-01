@@ -4,10 +4,18 @@ import { Request, Response, NextFunction } from 'express'
 import pool from '../config/db'
 dotenv.config()
 
-interface UserPayload extends jwt.JwtPayload{
+interface User extends jwt.JwtPayload, Request{
     user_id: number,
     username: string,
     email: string
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
+  }
 }
 
 
@@ -66,7 +74,8 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
 
                     //if everything passes, generate new accessToken and send to client
                     const currentPayload = user as jwt.JwtPayload
-                    const {exp, iat, ...userPayload} = currentPayload
+                    const {created_at, exp, iat, ...userPayload} = currentPayload
+
                     const newAccessToken = jwt.sign(userPayload as JwtPayload, accessSecret!, {expiresIn: '5s'})
                     res.cookie('accessToken', newAccessToken, {
                         httpOnly: true,
@@ -74,11 +83,19 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                         sameSite: 'lax', 
                         maxAge: 30 * 60 * 1000
                     })
+                    req.user = userPayload as User
+                    console.log(req.user)
+
                 })
                 console.log('valid refresh token, generated new access token and sent to user')
                 return next()
             }
+            const currentPayload = user as jwt.JwtPayload
+            const {created_at, exp, iat, ...userPayload} = currentPayload
             console.log('access token valid')
+            req.user = userPayload as User
+            console.log(req.user)
+
             return next()
     })
 
