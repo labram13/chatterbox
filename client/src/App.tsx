@@ -23,6 +23,8 @@ function App() {
     return isLoggedIn ? <Navigate to='/dashboard' /> : <Outlet />
   }
 
+  
+
   useEffect( () => {
    (async () => {
      const response = await fetch('api/user/verify', {
@@ -52,12 +54,15 @@ function App() {
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
+          
         </Route>
 
         <Route element={<AuthCheckLoginRegister />}>
           <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path='/register' element={<Register setIsLoggedIn={setIsLoggedIn}/>} />
         </Route>
+
+        <Route path='*' element={<div>Page does not exist</div>} />
 
       </Routes>
     </div>
