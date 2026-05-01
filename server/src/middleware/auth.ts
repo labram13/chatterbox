@@ -36,10 +36,11 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
 
     //verify token
 
+
+
     jwt.verify(accessToken, 
         accessSecret, 
-        async (err:jwt.VerifyErrors | null, 
-        user: jwt.JwtPayload | string | undefined): Promise<void | Response<any, Record<string, any>>> => {
+        async (err: jwt.VerifyErrors | null, user?: jwt.JwtPayload | string) => {
             if (err) {
 
                 //check for refresh token
@@ -66,7 +67,7 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                jwt.verify(
                 refreshToken,
                 refreshSecret,
-                (err: jwt.VerifyErrors | null, user: jwt.JwtPayload | string | undefined):void | Response => {
+                (err: jwt.VerifyErrors | null, user?: jwt.JwtPayload | string) => {
                     if (err) {
                         return res.status(400).json({status: 'invalid refreshToken'})
                     }
