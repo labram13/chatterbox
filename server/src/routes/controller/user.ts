@@ -123,6 +123,8 @@ router.post('/login', async (req, res) => {
             })
         }
 
+        console.log("login user payload", user)
+
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!, {expiresIn: '15m'
         })
@@ -163,6 +165,6 @@ router.post('/verify', authenticateToken, async (req, res) => {
 
 
 function generateAccessToken(user: User) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '60s'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '5s'})
 }
 export default router;
