@@ -74,20 +74,12 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                         sameSite: 'lax', 
                         maxAge: 30 * 60 * 1000
                     })
-                    console.log('valid refresh token, generated new access token and sent to user')
-                    
-  
                 })
-                next()
-                return
+                console.log('valid refresh token, generated new access token and sent to user')
+                return next()
             }
-            console.log('valid access token')
-            next()
-            return
-            //valid access token go next(0)
-            
-        
-
+            console.log('access token valid')
+            return next()
     })
 
 }
