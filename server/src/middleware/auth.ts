@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express'
 import pool from '../config/db'
 dotenv.config()
 
-interface User extends jwt.JwtPayload, Request{
+interface User extends jwt.JwtPayload, Request {
     user_id: number,
     username: string,
     email: string
