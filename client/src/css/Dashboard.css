@@ -3,8 +3,15 @@
     width: 100vw;
     background-color: red;
     display: flex;
-    flex-direction: column-reverse;
-    top: -80px;
-    position: relative;
-    
+    flex-direction: column;   
+}
+
+h1 {
+    background-color: yellow;
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin-bottom: 80px;
 }

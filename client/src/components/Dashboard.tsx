@@ -6,8 +6,13 @@ import '../css/Dashboard.css'
 export default function Dashboard() {
     return (
         <div className='dash-container'>
+            <h1>Header</h1>
             <Navbar />
-            <Outlet />
+            <main>
+                <Outlet />
+            </main>
+            
+            
         </div>
     )
 }
