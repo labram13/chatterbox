@@ -27,7 +27,7 @@ function App() {
 
   useEffect( () => {
    (async () => {
-     const response = await fetch('api/user/verify', {
+     const response = await fetch('/api/user/verify', {
       method: 'POST', 
       credentials: 'include'
     })
@@ -62,7 +62,7 @@ function App() {
           <Route path='/register' element={<Register setIsLoggedIn={setIsLoggedIn}/>} />
         </Route>
 
-        <Route path='*' element={<div>Page does not exist</div>} />
+        {/* <Route path='*' element={<div>Page does not exist</div>} /> */}
 
       </Routes>
     </div>

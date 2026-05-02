@@ -165,6 +165,6 @@ router.post('/verify', authenticateToken, async (req, res) => {
 
 
 function generateAccessToken(user: User) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '5s'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN!, {expiresIn: '10s'})
 }
 export default router;

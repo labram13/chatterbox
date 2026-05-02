@@ -51,7 +51,7 @@ export default function Login({setIsLoggedIn}: SetLoginStatus) {
             return
         }
         setIsLoggedIn(true)
-        navigate('/dashboard', { replace: true });
+        navigate('/dashboard');
     }
 
     return (

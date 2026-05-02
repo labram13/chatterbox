@@ -44,7 +44,7 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
             if (err) {
 
                 //check for refresh token
-
+                console.log(err)
                 if (!refreshToken) {
                     return res.status(400).json({status: 'accessToken invalid and refreshToken undefined'})
                 }
@@ -77,7 +77,7 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                     const currentPayload = user as jwt.JwtPayload
                     const {created_at, exp, iat, ...userPayload} = currentPayload
 
-                    const newAccessToken = jwt.sign(userPayload as JwtPayload, accessSecret!, {expiresIn: '5s'})
+                    const newAccessToken = jwt.sign(userPayload as JwtPayload, accessSecret!, {expiresIn: '10s'})
                     res.cookie('accessToken', newAccessToken, {
                         httpOnly: true,
                         secure: false,
@@ -86,10 +86,11 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                     })
                     req.user = userPayload as User
                     console.log(req.user)
+                    return next()
 
                 })
                 console.log('valid refresh token, generated new access token and sent to user')
-                return next()
+                return
             }
             const currentPayload = user as jwt.JwtPayload
             const {created_at, exp, iat, ...userPayload} = currentPayload
