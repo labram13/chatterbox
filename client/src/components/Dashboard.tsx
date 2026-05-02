@@ -1,15 +1,18 @@
 import Navbar from './Navbar'
 import {Outlet} from 'react-router-dom'
+import {useState} from 'react'
 
 import '../css/Dashboard.css'
 
 export default function Dashboard() {
+
+    const [header, setHeader] = useState<string | null>(null)
     return (
         <div className='dash-container'>
-            <h1>Header</h1>
+            <h1>{header}</h1>
             <Navbar />
             <main>
-                <Outlet />
+                <Outlet context={{setHeader}}/>
             </main>
             
             
