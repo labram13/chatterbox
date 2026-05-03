@@ -4,10 +4,14 @@
     justify-content: space-evenly;
     list-style-type: none;
     align-items: center;
-    background-color: green;
+    background-color: black;
     position: fixed;
     bottom: 0;
     width: 100vw;
     height: 80px;
+}
 
+.navbar li a {
+    text-decoration: none;
+    color: white;
 }

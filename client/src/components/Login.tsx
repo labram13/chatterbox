@@ -5,15 +5,29 @@ import {Link, useNavigate} from 'react-router-dom'
 import type {Dispatch, SetStateAction} from 'react'
 
 
-interface Credentials {
-    username: string,
+interface Credentials extends User{
     password: string
 }
 
-interface SetLoginStatus {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
+interface User {
+    userID: number,
+    username: string
 }
-export default function Login({setIsLoggedIn}: SetLoginStatus) {
+
+// interface SetLoginStatus {
+//   setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
+// }
+
+// interface SetUser {
+//     setUser: Dispatch<SetStateAction<User | null>>
+// }
+
+interface Props {
+    setUser: Dispatch<SetStateAction<User | null>>,
+    setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
+}
+
+export default function Login(props: Props) {
     const navigate = useNavigate()
     const form = useForm<Credentials>()
     const { register, handleSubmit, formState, setError} = form
@@ -50,7 +64,10 @@ export default function Login({setIsLoggedIn}: SetLoginStatus) {
             }
             return
         }
-        setIsLoggedIn(true)
+
+        console.log("login", responseJson)
+        props.setIsLoggedIn(true)
+        props.setUser(responseJson.user)
         navigate('/dashboard');
     }
 

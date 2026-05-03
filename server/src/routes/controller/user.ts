@@ -18,7 +18,6 @@ type NewUser = {
 type User = {
     user_id: number, 
     username: string,
-    email: string
 }
 
 type UserCredentials = {
@@ -62,7 +61,7 @@ router.post('/register', async (req, res) => {
         )
         
         const userInfo = addUser.rows[0]
-        const {password, ...user} = userInfo
+        const {password, created_at, email, ...user}= userInfo
         const accessToken = generateAccessToken(user)
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!, {expiresIn: '15m'})
         
@@ -82,7 +81,7 @@ router.post('/register', async (req, res) => {
             secure: false,
             sameSite: 'lax', 
             maxAge: 15 * 60 * 1000
-        }).status(200).json({status: 'success'})
+        }).status(200).json({status: 'success', user: user})
     } catch (error) {
         res.status(500).json({status: error})
     }
@@ -112,7 +111,7 @@ router.post('/login', async (req, res) => {
             })
         }
 
-        const {password, ...user} = userInfo.rows[0]
+        const {password, created_at, email, ...user} = userInfo.rows[0]
 
         const comparePass = await bcrypt.compare(userCredentials.password, password)
 
@@ -147,7 +146,7 @@ router.post('/login', async (req, res) => {
             sameSite: 'lax', 
             maxAge: 30 * 60 * 1000
 
-        }).status(200).json({status: 'success'})
+        }).status(200).json({status: 'success', user: user})
 
         
         
@@ -160,7 +159,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/verify', authenticateToken, async (req, res) => {
     console.log('hit /verify')
-    res.status(200).json({status: "success"})
+    // console.log("verify user", req.user)
+    res.status(200).json({status: "success", user: req.user})
 })
 
 

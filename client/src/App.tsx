@@ -11,10 +11,14 @@ import {useState, useEffect} from 'react'
  
 
 
-
+type User = {
+  userID: number,
+  username: string,
+}
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
+  const [user, setUser] = useState<User| null>(null)
   function AuthCheckDashboard() {
     return isLoggedIn ? <Outlet /> : <Navigate to='/login' />
   }
@@ -22,6 +26,7 @@ function App() {
   function AuthCheckLoginRegister() {
     return isLoggedIn ? <Navigate to='/dashboard' /> : <Outlet />
   }
+
 
   
 
@@ -31,10 +36,18 @@ function App() {
       method: 'POST', 
       credentials: 'include'
     })
+    const responseJson = await response.json()
+    // console.log(responseJson)
+   
+      // console.log(user)
+    setUser(responseJson.user)
     setIsLoggedIn(response.ok)
    })()
 
   }, [])
+
+  // console.log(user)
+
 
    if (isLoggedIn === null) {
     return <div>Loading...</div>
@@ -48,7 +61,7 @@ function App() {
 
         <Route element={<AuthCheckDashboard />}>
           <Route path='/' element={<Navigate to='/dashboard' />}/>
-          <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
             <Route path='dms' element={<DMS />}/>
             <Route path='groups' element={<Groups />}/>
@@ -58,8 +71,8 @@ function App() {
         </Route>
 
         <Route element={<AuthCheckLoginRegister />}>
-          <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path='/register' element={<Register setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path='/login' element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path='/register' element={<Register setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>} />
         </Route>
 
         {/* <Route path='*' element={<div>Page does not exist</div>} /> */}

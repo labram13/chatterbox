@@ -1,10 +1,18 @@
 import Navbar from './Navbar'
 import {Outlet} from 'react-router-dom'
 import {useState} from 'react'
-
 import '../css/Dashboard.css'
 
-export default function Dashboard() {
+type User = {
+    userID: number,
+    username: string
+}
+
+type Props = {
+    user?: User
+}
+
+export default function Dashboard(props: Props) {
 
     const [header, setHeader] = useState<string | null>(null)
     return (

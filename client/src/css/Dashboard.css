@@ -1,13 +1,14 @@
 .dash-container {
     height: inherit;
     width: 100vw;
-    background-color: red;
+    background-color: white;
     display: flex;
     flex-direction: column;   
 }
 
 h1 {
-    background-color: yellow;
+    background-color: black;
+    color: white;
 }
 
 main {
