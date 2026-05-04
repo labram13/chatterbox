@@ -10,7 +10,7 @@ type HeaderContext = {
 type DMRoom = {
     dm_id: string,
     username: string,
-    lastMessage: string
+    last_message: string
 
 }
 
@@ -48,7 +48,7 @@ function DM(props: DMRoom) {
                         </h3>
                     </div>
                     <div className='last-message'>
-                        {props.lastMessage}
+                        {props.last_message}
                     </div>
                 </div>
             </div>
@@ -73,18 +73,16 @@ export default function DMS() {
             })
 
             const responseJson = await response.json();
-            // console.log(responseJson.dmList)
+            console.log(responseJson.dmList)
             const dmList: DMRoom[] = responseJson.dmList
             setDmList(dmList)
-
-            
         })()
          console.log('setheader')
 
     }, [setHeader])
 
     const dms = dmList.map((dm:DMRoom) => {
-        return <DM dm_id={dm.dm_id} username={dm.username} lastMessage={dm.lastMessage} key={dm.dm_id} />
+        return <DM dm_id={dm.dm_id} username={dm.username} last_message={dm.last_message} key={dm.dm_id} />
     })
 
     return (

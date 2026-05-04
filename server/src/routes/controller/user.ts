@@ -66,7 +66,7 @@ router.post('/register', async (req, res) => {
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN!, {expiresIn: '15m'})
         
         const addRefreshToken = await pool.query(
-            'INSERT INTO refresh_tokens(user_id, token) VALUES ($1, $2)', 
+            'INSERT INTO refresh_tokens(fk_user_id, token) VALUES ($1, $2)', 
             [user.user_id, refreshToken]
         )
         res.cookie('accessToken', accessToken, {
@@ -129,7 +129,7 @@ router.post('/login', async (req, res) => {
         })
 
         await pool.query(
-            'INSERT INTO refresh_tokens(user_id, token) VALUES($1, $2)',
+            'INSERT INTO refresh_tokens(fk_user_id, token) VALUES($1, $2)',
             [user.user_id, refreshToken]
         )
 

@@ -14,15 +14,15 @@ router.get('/dms', authenticateToken, async (req, res) => {
     try {
 
         const query = await pool.query(`
-            select m1.dm_id, u.username, u.user_id
+            select m1.fk_dm, u.username, u.user_id
             from members m1
             join members m2
-            on m1.dm_id = m2.dm_id
+            on m1.fk_dm = m2.fk_dm
             join users u
-            on m2.user_id = u.user_id
-            where m1.user_id = $1
-            and m2.user_id != $1 
-            `, [req.user!.user_id])
+            on m2.fk_user = u.user_id
+            where m1.fk_user = $1
+            and m2.fk_user != $1 
+            `, [user!.user_id])
             
             // console.log(query.rows)
 
