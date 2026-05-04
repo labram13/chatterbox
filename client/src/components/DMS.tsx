@@ -1,5 +1,5 @@
 import {useOutletContext, Link} from 'react-router-dom'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import '../css/DMS.css'
 
 
@@ -8,43 +8,43 @@ type HeaderContext = {
 }
 
 type DMRoom = {
-    dmID: string,
-    receiver: string,
+    dm_id: string,
+    username: string,
     lastMessage: string
 
 }
 
-const dmList: DMRoom[] = [
-    {
-        dmID: '1',
-        receiver: 'test2',
-        lastMessage: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus aspernatur officia animi maiores possimus dolores culpa tenetur, maxime consequatur, iusto nihil saepe alias at pariatur ipsum quas eos rerum voluptatibus?'
-    },
-    { dmID: '2',
-        receiver: 'test3',
-        lastMessage: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia assumenda ab sapiente libero, error at, iure, omnis molestiae facilis obcaecati quibusdam excepturi itaque temporibus iusto illum ipsum laudantium doloremque quas.'
+// const dmList: DMRoom[] = [
+//     {
+//         dmID: '1',
+//         username: 'test2',
+//         lastMessage: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus aspernatur officia animi maiores possimus dolores culpa tenetur, maxime consequatur, iusto nihil saepe alias at pariatur ipsum quas eos rerum voluptatibus?'
+//     },
+//     { dmID: '2',
+//         username: 'test3',
+//         lastMessage: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia assumenda ab sapiente libero, error at, iure, omnis molestiae facilis obcaecati quibusdam excepturi itaque temporibus iusto illum ipsum laudantium doloremque quas.'
 
-    }
-]
+//     }
+// ]
 
 function DM(props: DMRoom) {
 
-    console.log(props)
+    // console.log(props)
 
 
     return (
         <Link to='/groups'>
-            <div id={props.dmID} className='dm-container'>
+            <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
                     <h2>
 
-                    {props.receiver.charAt(0).toUpperCase()}
+                    {props.username.charAt(0).toUpperCase()}
                     </h2>
                 </div>
                 <div className='dm-main'>
                     <div className='receiver'>
                         <h3>
-                            {props.receiver}
+                            {props.username}
                         </h3>
                     </div>
                     <div className='last-message'>
@@ -60,13 +60,31 @@ function DM(props: DMRoom) {
 export default function DMS() {
 
     const {setHeader} = useOutletContext<HeaderContext>()
+    const [dmList, setDmList] = useState<DMRoom[]>([])
+
     useEffect(() => {
-        setHeader('Direct Messages')
 
-    },[setHeader])
+        (async () => {
+            setHeader('Direct Messages')
 
-    const dms = dmList.map((dm) => {
-        return <DM dmID={dm.dmID} receiver={dm.receiver} lastMessage={dm.lastMessage} key={dm.dmID} />
+            const response = await fetch('/api/message/dms', {
+                method: 'GET',
+                credentials: 'include'
+            })
+
+            const responseJson = await response.json();
+            // console.log(responseJson.dmList)
+            const dmList: DMRoom[] = responseJson.dmList
+            setDmList(dmList)
+
+            
+        })()
+         console.log('setheader')
+
+    }, [setHeader])
+
+    const dms = dmList.map((dm:DMRoom) => {
+        return <DM dm_id={dm.dm_id} username={dm.username} lastMessage={dm.lastMessage} key={dm.dm_id} />
     })
 
     return (
