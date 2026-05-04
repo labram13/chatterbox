@@ -10,17 +10,10 @@ interface Credentials extends User{
 }
 
 interface User {
-    userID: number,
+    userID: string,
     username: string
 }
 
-// interface SetLoginStatus {
-//   setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
-// }
-
-// interface SetUser {
-//     setUser: Dispatch<SetStateAction<User | null>>
-// }
 
 interface Props {
     setUser: Dispatch<SetStateAction<User | null>>,
@@ -65,9 +58,10 @@ export default function Login(props: Props) {
             return
         }
 
-        console.log("login", responseJson)
         props.setIsLoggedIn(true)
-        props.setUser(responseJson.user)
+        const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+        props.setUser(user)
+
         navigate('/dashboard');
     }
 

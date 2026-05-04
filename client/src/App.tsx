@@ -12,7 +12,7 @@ import {useState, useEffect} from 'react'
 
 
 type User = {
-  userID: number,
+  userID: string,
   username: string,
 }
 function App() {
@@ -37,16 +37,21 @@ function App() {
       credentials: 'include'
     })
     const responseJson = await response.json()
-    // console.log(responseJson)
-   
-      // console.log(user)
-    setUser(responseJson.user)
+
+    if (!response.ok) {
+      setUser(null)
+      setIsLoggedIn(response.ok)
+      return
+    }
+
+    const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+    setUser(user)
     setIsLoggedIn(response.ok)
    })()
 
   }, [])
 
-  // console.log(user)
+  console.log("apps", user)
 
 
    if (isLoggedIn === null) {
@@ -75,7 +80,7 @@ function App() {
           <Route path='/register' element={<Register setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>} />
         </Route>
 
-        {/* <Route path='*' element={<div>Page does not exist</div>} /> */}
+        <Route path='*' element={<div>Page does not exist</div>} />
 
       </Routes>
     </div>

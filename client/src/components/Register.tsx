@@ -14,7 +14,7 @@ type FormValues = {
 }
 
 type User = {
-    userID: number,
+    userID: string,
     username: string
 }
 
@@ -48,7 +48,8 @@ export default  function Register(props: Props) {
 
         if (response.ok) {
             props.setIsLoggedIn(true)
-            props.setUser(responseJson.user)
+            const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+            props.setUser(user)
             navigate('/dashboard')
 
         } else {
