@@ -1,4 +1,4 @@
-import {useOutletContext, Link} from 'react-router-dom'
+import {useOutletContext, Link, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import '../css/DMS.css'
 
@@ -12,6 +12,10 @@ type DMRoom = {
     username: string,
     last_message: string
 
+}
+
+type Props = {
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
 // const dmList: DMRoom[] = [
@@ -57,10 +61,11 @@ function DM(props: DMRoom) {
     )
 }
 
-export default function DMS() {
+export default function DMS(props: Props) {
 
     const {setHeader} = useOutletContext<HeaderContext>()
     const [dmList, setDmList] = useState<DMRoom[]>([])
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -72,14 +77,20 @@ export default function DMS() {
                 credentials: 'include'
             })
 
-            const responseJson = await response.json();
-            console.log(responseJson.dmList)
-            const dmList: DMRoom[] = responseJson.dmList
-            setDmList(dmList)
-        })()
-         console.log('setheader')
+                if (!response.ok) {
+                    props.setIsLoggedIn(false)
+                }
 
-    }, [setHeader])
+                
+                const responseJson = await response.json();
+                // console.log(responseJson.dmList)
+                const dmList: DMRoom[] = responseJson.dmList
+                setDmList(dmList)
+            
+        
+        })()
+
+    }, [setHeader, navigate])
 
     const dms = dmList.map((dm:DMRoom) => {
         return <DM dm_id={dm.dm_id} username={dm.username} last_message={dm.last_message} key={dm.dm_id} />

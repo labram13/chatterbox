@@ -20,11 +20,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const [user, setUser] = useState<User| null>(null)
   function AuthCheckDashboard() {
-    return isLoggedIn ? <Outlet /> : <Navigate to='/login' />
+    return isLoggedIn ? <Outlet /> : <Navigate to='/login' replace/>
   }
 
   function AuthCheckLoginRegister() {
-    return isLoggedIn ? <Navigate to='/dashboard' /> : <Outlet />
+    return isLoggedIn ? <Navigate to='/dashboard' replace/> : <Outlet />
   }
 
 
@@ -40,13 +40,13 @@ function App() {
 
     if (!response.ok) {
       setUser(null)
-      setIsLoggedIn(response.ok)
+      setIsLoggedIn(false)
       return
     }
 
     const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
     setUser(user)
-    setIsLoggedIn(response.ok)
+    setIsLoggedIn(true)
    })()
 
   }, [])
@@ -68,7 +68,7 @@ function App() {
           <Route path='/' element={<Navigate to='/dashboard' />}/>
           <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
-            <Route path='dms' element={<DMS />}/>
+            <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}/>
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
