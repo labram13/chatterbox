@@ -18,19 +18,6 @@ type Props = {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
-// const dmList: DMRoom[] = [
-//     {
-//         dmID: '1',
-//         username: 'test2',
-//         lastMessage: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus aspernatur officia animi maiores possimus dolores culpa tenetur, maxime consequatur, iusto nihil saepe alias at pariatur ipsum quas eos rerum voluptatibus?'
-//     },
-//     { dmID: '2',
-//         username: 'test3',
-//         lastMessage: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia assumenda ab sapiente libero, error at, iure, omnis molestiae facilis obcaecati quibusdam excepturi itaque temporibus iusto illum ipsum laudantium doloremque quas.'
-
-//     }
-// ]
-
 function DM(props: DMRoom) {
 
     return (
@@ -79,9 +66,7 @@ export default function DMS(props: Props) {
                     return
                 }
 
-                
                 const responseJson = await response.json();
-                console.log(responseJson.dmList)
                 const dmList: DMRoom[] = responseJson.dmList
                 setDmList(dmList)
             
@@ -91,9 +76,10 @@ export default function DMS(props: Props) {
     }, [setHeader, navigate])
 
     const dms = dmList.map((dm:DMRoom, n) => {
-        console.log(n)
-        return <DM dm_id={dm.dm_id} username={dm.username} last_message={dm.last_message} key={dm.dm_id} />
+        return <DM dm_id={dm.dm_id} last_message={'    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur dolorum reprehenderit nobis necessitatibus laudantium dolore aut ex labore officiis consequuntur mollitia, eveniet, enim facilis ut fuga facere rerum hic itaque'} username={dm.username} key={n} />
     })
+
+    // console.log("dmlist", dmList)
 
     return (
         <div>

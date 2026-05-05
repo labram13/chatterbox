@@ -3,9 +3,10 @@ import { authenticateToken } from '../../middleware/auth'
 import pool from '../../config/db'
 const router = express()
 
-type User = {
-    user_id: number,
+type DMS = {
+    dm_id: string,
     username: string,
+    // last_message: string
 }
 
 router.get('/dms', authenticateToken, async (req, res) => {
@@ -13,8 +14,10 @@ router.get('/dms', authenticateToken, async (req, res) => {
 
     try {
 
-        const query = await pool.query(`
-            select dm.dm_id, m.fk_user, u.username
+        let dms: DMS[] = [];
+
+        const dmsAsCreator = await pool.query(`
+            select dm.dm_id, u.user_id, u.username
             from direct_messages dm
             join members m
             on dm.dm_id = m.fk_dm
@@ -23,9 +26,22 @@ router.get('/dms', authenticateToken, async (req, res) => {
             where fk_creator = $1;
             `, [user!.user_id])
             
-            // console.log(query.rows)
+        const dmsAsMember = await pool.query(`
+                select dm.dm_id, u.user_id, u.username
+                from members m
+                join direct_messages dm
+                    on m.fk_dm = dm.dm_id
+                join message msg         
+                    on dm.dm_id = msg.fk_dm
+                join users u
+                    on u.user_id = fk_creator
+                WHERE m.fk_user = $1 and dm.fk_creator != $1
+                group by dm.dm_id, u.user_id
+            `, [user!.user_id])
 
-            res.status(200).json({status: 'success', dmList: query.rows})
+            dms = [...dmsAsCreator.rows, ...dmsAsMember.rows]
+
+            res.status(200).json({status: 'success', dmList: dms})
     } catch (err) {
         res.status(500).json({status: err})
     }
