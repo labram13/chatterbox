@@ -55,11 +55,6 @@ insert into members
 (fk_user, fk_dm)
 values (2, 1);
 
-
-insert into members
-(fk_user, fk_dm)
-values (1, 2)
-
 insert into members
 (fk_user, fk_dm)
 values (1, 3)
@@ -68,9 +63,11 @@ insert into members
 (fk_user, fk_dm)
 values (1, 4)
 
+drop table if exists message;
+
 create table message ( 
 	message_id serial primary key, 
-	fk_dm_id int references direct_messages (dm_id),
+	fk_dm int references direct_messages (dm_id),
 	context text,
 	sender int references users (user_id),
 	created_at timestamp default current_timestamp
