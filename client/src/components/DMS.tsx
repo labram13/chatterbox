@@ -79,6 +79,7 @@ export default function DMS(props: Props) {
 
                 if (!response.ok) {
                     props.setIsLoggedIn(false)
+                    return
                 }
 
                 

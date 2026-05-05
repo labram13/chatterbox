@@ -35,3 +35,43 @@ create table members (
 	primary key(fk_user, fk_dm)
 )
 
+insert into direct_messages
+(fk_creator)
+values (1);
+
+insert into direct_messages
+(fk_creator)
+values (2);
+
+insert into direct_messages
+(fk_creator)
+values (3);
+
+insert into members 
+(fk_user, fk_dm)
+values (2, 1);
+
+insert into members 
+(fk_user, fk_dm)
+values (3, 1) 
+
+insert into members
+(fk_user, fk_dm)
+values (1, 2)
+
+insert into members
+(fk_user, fk_dm)
+values (1, 3)
+
+-- Retrieve all dms you own with members and dm_id
+
+select dm.dm_id, m.fk_user, u.username
+from direct_messages dm
+join members m
+on dm.dm_id = m.fk_dm
+join users u
+on m.fk_user = u.user_id
+where dm.fk_creator = 1;
+
+
+
