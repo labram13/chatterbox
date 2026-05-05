@@ -47,6 +47,10 @@ insert into direct_messages
 (fk_creator)
 values (3);
 
+insert into direct_messages
+(fk_creator)
+values (4);
+
 insert into members 
 (fk_user, fk_dm)
 values (2, 1);
@@ -60,15 +64,50 @@ insert into members
 (fk_user, fk_dm)
 values (1, 3)
 
+insert into members
+(fk_user, fk_dm)
+values (1, 4)
+
+create table message ( 
+	message_id serial primary key, 
+	fk_dm_id int references direct_messages (dm_id),
+	context text,
+	sender int references users (user_id),
+	created_at timestamp default current_timestamp
+)
+
+insert into message
+(fk_dm, context, sender)
+values (3, 'testing message', 3)
+
+insert into message
+(fk_dm, context, sender)
+values (1, 'testing message', 1)
+
 -- Retrieve all dms you own with members and dm_id
 
-select dm.dm_id, m.fk_user, u.username
+select dm.dm_id, u.user_id, u.username
 from direct_messages dm
 join members m
 on dm.dm_id = m.fk_dm
 join users u
 on m.fk_user = u.user_id
 where dm.fk_creator = 1;
+
+--Retrieve dms you are a member of that have messages
+select dm.dm_id, u.user_id, u.username
+from members m
+join direct_messages dm
+	on m.fk_dm = dm.dm_id
+join message msg         
+	on dm.dm_id = msg.fk_dm
+join users u
+	on u.user_id = fk_creator
+WHERE m.fk_user = 1 and dm.fk_creator != 1
+group by dm.dm_id, u.user_id
+
+
+
 
 
 
