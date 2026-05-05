@@ -51,9 +51,6 @@ insert into members
 (fk_user, fk_dm)
 values (2, 1);
 
-insert into members 
-(fk_user, fk_dm)
-values (3, 1) 
 
 insert into members
 (fk_user, fk_dm)

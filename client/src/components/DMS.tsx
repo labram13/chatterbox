@@ -33,9 +33,6 @@ type Props = {
 
 function DM(props: DMRoom) {
 
-    // console.log(props)
-
-
     return (
         <Link to='/groups'>
             <div id={props.dm_id} className='dm-container'>
@@ -84,7 +81,7 @@ export default function DMS(props: Props) {
 
                 
                 const responseJson = await response.json();
-                // console.log(responseJson.dmList)
+                console.log(responseJson.dmList)
                 const dmList: DMRoom[] = responseJson.dmList
                 setDmList(dmList)
             
@@ -93,7 +90,8 @@ export default function DMS(props: Props) {
 
     }, [setHeader, navigate])
 
-    const dms = dmList.map((dm:DMRoom) => {
+    const dms = dmList.map((dm:DMRoom, n) => {
+        console.log(n)
         return <DM dm_id={dm.dm_id} username={dm.username} last_message={dm.last_message} key={dm.dm_id} />
     })
 
