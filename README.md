@@ -63,7 +63,12 @@ A full-stack chat chat application with a goal of sending messages to individual
     - Validates user credentials
     - Sends JWT token in cookie to client
 
+- POST /verify
+    - uses authenticate middleware to verify users tokens
+
 #### Message
+- GET /dms
+    - retrieves a list of direct messages with users from Postgresql DB
 - POST /message
     - Adds new message with user_id for both sender and recipient. Message text is required. Img url (media) is not
 - GET /message/:id
@@ -91,6 +96,9 @@ Using Figma's simple design components. Created 3 different states (initial, suc
 
 ##### Mobile
 ![Onoarding Screenshots](./project-images/onboarding.png)
+![Dashboard/Direct Message List View](./project-images/direct-message-list.png)
+![Direct Message View](./project-images/direct-message.png)
+
 
 
 
