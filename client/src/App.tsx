@@ -6,7 +6,9 @@ import Dashboard from './components/Dashboard'
 import Groups from './components/Groups'
 import DMS from './components/DMS'
 import Profile from './components/Profile'
+import DM from './components/DM'
 import {useState, useEffect} from 'react'
+
 
  
 
@@ -51,7 +53,7 @@ function App() {
 
   }, [])
 
-  console.log("apps", user)
+  // console.log("apps", user)
 
 
    if (isLoggedIn === null) {
@@ -68,7 +70,9 @@ function App() {
           <Route path='/' element={<Navigate to='/dashboard' />}/>
           <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
-            <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}/>
+            <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}>
+              <Route path='dm' element={<DM />}/>
+            </Route>
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>

@@ -17,3 +17,19 @@ main {
     margin-bottom: 80px;
 }
 
+
+.dm-window {
+    background-color: red;
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 80vw;
+    height: 100%;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.dm-window.hidden{
+    right: -100%;
+
+}

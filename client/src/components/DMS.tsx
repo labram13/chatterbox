@@ -1,5 +1,8 @@
 import {useOutletContext, Link, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
+import { Outlet } from 'react-router-dom'
+import type {Dispatch, SetStateAction} from 'react'
+
 import '../css/DMS.css'
 
 
@@ -7,10 +10,14 @@ type HeaderContext = {
     setHeader: React.Dispatch<React.SetStateAction<string>>
 }
 
-type DMRoom = {
+interface DMInfo  {
     dm_id: string,
     username: string,
-    last_message: string
+}
+
+interface Setters extends DMInfo{
+    handleVisible: () => void
+    setDM: Dispatch<React.SetStateAction<DMInfo | null>>
 
 }
 
@@ -18,10 +25,10 @@ type Props = {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
-function DM(props: DMRoom) {
+function DM(props: Setters) {
 
     return (
-        <Link to='/groups'>
+        <Link onClick={() => props.handleVisible()} to='/dashboard/dms/dm'>
             <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
                     <h2>
@@ -36,7 +43,7 @@ function DM(props: DMRoom) {
                         </h3>
                     </div>
                     <div className='last-message'>
-                        {props.last_message}
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ipsam voluptatibus totam et accusamus quibusdam facere eveniet voluptatum explicabo, harum, officia eius nesciunt voluptates unde, illum quasi ab. Error, corrupti?
                     </div>
                 </div>
             </div>
@@ -48,8 +55,15 @@ function DM(props: DMRoom) {
 export default function DMS(props: Props) {
 
     const {setHeader} = useOutletContext<HeaderContext>()
-    const [dmList, setDmList] = useState<DMRoom[]>([])
+    const [dmList, setDmList] = useState<DMInfo[]>([])
+    const [dm, setDM] = useState<DMInfo | null>(null)
+    const [visible, setVisible] = useState<boolean>(true)
     const navigate = useNavigate()
+
+    const handleVisible = () => {
+        setVisible(!visible)
+    }
+
 
     useEffect(() => {
 
@@ -67,23 +81,22 @@ export default function DMS(props: Props) {
                 }
 
                 const responseJson = await response.json();
-                const dmList: DMRoom[] = responseJson.dmList
+                const dmList: DMInfo[] = responseJson.dmList
                 setDmList(dmList)
-            
-        
         })()
 
     }, [setHeader, navigate])
 
-    const dms = dmList.map((dm:DMRoom, n) => {
-        return <DM dm_id={dm.dm_id} last_message={'    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur dolorum reprehenderit nobis necessitatibus laudantium dolore aut ex labore officiis consequuntur mollitia, eveniet, enim facilis ut fuga facere rerum hic itaque'} username={dm.username} key={n} />
+    const dms = dmList.map((dm:DMInfo, n) => {
+        return <DM setDM={setDM} handleVisible={handleVisible} dm_id={dm.dm_id} username={dm.username} key={n} />
     })
 
-    // console.log("dmlist", dmList)
 
     return (
         <div>
             {dms}
+            <Outlet context= {{visible}} />
+
         </div>
     )
 }
