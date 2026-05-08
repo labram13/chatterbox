@@ -1,5 +1,5 @@
 import {  useEffect } from "react"
-import {useOutletContext} from 'react-router-dom'
+import {useOutletContext, useParams} from 'react-router-dom'
 import '../css/DM.css'
 
 type DMSProps = {

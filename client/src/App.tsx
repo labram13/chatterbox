@@ -71,7 +71,7 @@ function App() {
           <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
             <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}>
-              <Route path='dm' element={<DM user={user} />}/>
+              <Route path=':id' element={<DM user={user} />}/>
             </Route>
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>

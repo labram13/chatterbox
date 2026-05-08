@@ -30,7 +30,7 @@ function DM(props: Setters) {
     const username = props.username
 
     return (
-        <Link onClick={() => props.handleDMClick({dm_id, username})} to='/dashboard/dms/dm'>
+        <Link onClick={() => props.handleDMClick({dm_id, username})} to={`/dashboard/dms/${props.dm_id}`}>
             <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
                     <h2>
@@ -63,10 +63,9 @@ export default function DMS(props: DMSProps) {
     const navigate = useNavigate()
  
     const handleDMClick = (user: DMInfo) => {
-        setVisible(!visible)
+        // setVisible(!visible)
         setDM(user)
-
-        
+        setTimeout(() => setVisible(!visible), 5)  
     }
 
 
