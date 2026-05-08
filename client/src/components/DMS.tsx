@@ -15,20 +15,22 @@ interface DMInfo  {
     username: string,
 }
 
-interface Setters extends DMInfo{
-    handleVisible: () => void
+interface Setters extends DMInfo {
+    handleDMClick: (user:DMInfo) => void
     setDM: Dispatch<React.SetStateAction<DMInfo | null>>
 
 }
 
-type Props = {
+type DMSProps = {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
 function DM(props: Setters) {
+    const dm_id = props.dm_id
+    const username = props.username
 
     return (
-        <Link onClick={() => props.handleVisible()} to='/dashboard/dms/dm'>
+        <Link onClick={() => props.handleDMClick({dm_id, username})} to='/dashboard/dms/dm'>
             <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
                     <h2>
@@ -52,16 +54,19 @@ function DM(props: Setters) {
     )
 }
 
-export default function DMS(props: Props) {
+export default function DMS(props: DMSProps) {
 
     const {setHeader} = useOutletContext<HeaderContext>()
     const [dmList, setDmList] = useState<DMInfo[]>([])
     const [dm, setDM] = useState<DMInfo | null>(null)
-    const [visible, setVisible] = useState<boolean>(true)
+    const [visible, setVisible] = useState<boolean>(false)
     const navigate = useNavigate()
-
-    const handleVisible = () => {
+ 
+    const handleDMClick = (user: DMInfo) => {
         setVisible(!visible)
+        setDM(user)
+
+        
     }
 
 
@@ -85,17 +90,23 @@ export default function DMS(props: Props) {
                 setDmList(dmList)
         })()
 
+
+
+
+
     }, [setHeader, navigate])
 
+    console.log(visible)
+
     const dms = dmList.map((dm:DMInfo, n) => {
-        return <DM setDM={setDM} handleVisible={handleVisible} dm_id={dm.dm_id} username={dm.username} key={n} />
+        return <DM setDM={setDM} handleDMClick={handleDMClick} dm_id={dm.dm_id} username={dm.username} key={n} />
     })
 
 
     return (
         <div>
             {dms}
-            <Outlet context= {{visible}} />
+            <Outlet context= {{visible, dm}} />
 
         </div>
     )

@@ -17,7 +17,7 @@ export default function Dashboard(props: Props) {
     const [header, setHeader] = useState<string | null>(null)
     return (
         <div className='dash-container'>
-            <h1>{header}</h1>
+            <h1 className='dash-header'>{header}</h1>
             <Navbar />
             <main>
                 <Outlet context={{setHeader}}/>

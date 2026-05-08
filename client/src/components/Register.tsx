@@ -14,16 +14,16 @@ type FormValues = {
 }
 
 type User = {
-    userID: string,
+    user_id: string,
     username: string
 }
 
-interface Props {
+interface RegisterProps {
     setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
     setUser: Dispatch<SetStateAction<User | null>>
 }
 
-export default  function Register(props: Props) {
+export default  function Register(props: RegisterProps) {
     const form = useForm<FormValues>()
     const { register, handleSubmit, formState, setError, watch} = form
     const { errors } = formState;
@@ -48,7 +48,7 @@ export default  function Register(props: Props) {
 
         if (response.ok) {
             props.setIsLoggedIn(true)
-            const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+            const user: User = {user_id: responseJson.user.user_id.toString(), username: responseJson.user.username}
             props.setUser(user)
             navigate('/dashboard')
 

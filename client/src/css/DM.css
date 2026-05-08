@@ -1,0 +1,61 @@
+.dm-window {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: red;
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 80vw;
+    height: 100%;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.dm-window.hidden{
+    right: -100%;
+
+}
+
+.dm-header {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    color: white;
+    align-items: center;
+    gap: 1
+}
+
+.dm-header button {
+    margin-right: 10px;
+}
+
+.dm-avatar {
+    font-size: 4.5rem;
+    background-color: green;
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    vertical-align: center;
+}
+
+
+
+.message-container {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.message-input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 80px;
+}
+
+.message-input {
+    flex-grow: 1;
+}
+
+
+

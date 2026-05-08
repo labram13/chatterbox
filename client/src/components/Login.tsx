@@ -10,17 +10,17 @@ interface Credentials extends User{
 }
 
 interface User {
-    userID: string,
+    user_id: string,
     username: string
 }
 
 
-interface Props {
+interface LoginProps {
     setUser: Dispatch<SetStateAction<User | null>>,
     setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>
 }
 
-export default function Login(props: Props) {
+export default function Login(props: LoginProps) {
     const navigate = useNavigate()
     const form = useForm<Credentials>()
     const { register, handleSubmit, formState, setError} = form
@@ -59,7 +59,7 @@ export default function Login(props: Props) {
         }
 
         props.setIsLoggedIn(true)
-        const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+        const user: User = {user_id: responseJson.user.user_id.toString(), username: responseJson.user.username}
         props.setUser(user)
 
         navigate('/dashboard');

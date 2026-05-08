@@ -9,6 +9,14 @@ type DMS = {
     // last_message: string
 }
 
+type Message = {
+    message_id: string,
+    fk_dm: string,
+    context: string,
+    sender: string,
+    created_at: Date
+}
+
 router.get('/dms', authenticateToken, async (req, res) => {
     const user = req.user
 
@@ -45,6 +53,12 @@ router.get('/dms', authenticateToken, async (req, res) => {
     } catch (err) {
         res.status(500).json({status: err})
     }
+
+})
+
+router.get('/', authenticateToken, async (req, res) => {
+
+
 
 })
 

@@ -14,13 +14,13 @@ import {useState, useEffect} from 'react'
 
 
 type User = {
-  userID: string,
+  user_id: string,
   username: string,
 }
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
-  const [user, setUser] = useState<User| null>(null)
+  const [user, setUser] = useState<User | null>(null)
   function AuthCheckDashboard() {
     return isLoggedIn ? <Outlet /> : <Navigate to='/login' replace/>
   }
@@ -46,7 +46,7 @@ function App() {
       return
     }
 
-    const user: User = {userID: responseJson.user.user_id.toString(), username: responseJson.user.username}
+    const user: User = {user_id: responseJson.user.user_id.toString(), username: responseJson.user.username}
     setUser(user)
     setIsLoggedIn(true)
    })()
@@ -71,7 +71,7 @@ function App() {
           <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
             <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}>
-              <Route path='dm' element={<DM />}/>
+              <Route path='dm' element={<DM user={user} />}/>
             </Route>
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
