@@ -1,7 +1,7 @@
 import {useOutletContext, Link, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import { Outlet } from 'react-router-dom'
-import type {Dispatch, SetStateAction} from 'react'
+import type {Dispatch} from 'react'
 
 import '../css/DMS.css'
 
@@ -65,7 +65,7 @@ export default function DMS(props: DMSProps) {
     const handleDMClick = (user: DMInfo) => {
         // setVisible(!visible)
         setDM(user)
-        setTimeout(() => setVisible(!visible), 5)  
+        setTimeout(() => setVisible(!visible), 30)  
     }
 
 
@@ -105,7 +105,7 @@ export default function DMS(props: DMSProps) {
     return (
         <div>
             {dms}
-            <Outlet context= {{visible, dm}} />
+            <Outlet context= {{visible, dm, setVisible, setDM}} />
 
         </div>
     )

@@ -1,11 +1,7 @@
 import {  useEffect } from "react"
-import {useOutletContext, useParams} from 'react-router-dom'
+import {useOutletContext, useParams, useNavigate} from 'react-router-dom'
 import '../css/DM.css'
 
-type DMSProps = {
-    visible: boolean
-    dm: {dm_id: string, username: string}
-}
 
 type Message = {
     message_id: string,
@@ -15,17 +11,25 @@ type Message = {
     created_at: Date
 }
 
-type User = {
+type Recipient = {
     user_id: string, 
     username: string
 }
 
 interface DMProps {
-    user: User | null
+    user: Recipient | null
 }
 
 interface MessageProps {
     message: Message
+}
+
+
+type DMSProps = {
+    visible: boolean
+    dm: {dm_id: string, username: string},
+    setDM: React.Dispatch<React.SetStateAction<Recipient | null>>,
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function Message(props: MessageProps) {
@@ -59,8 +63,8 @@ const test:Message[] = [
 ]
 export default function DM(props: DMProps) {
     
-    const {visible, dm} = useOutletContext<DMSProps>()
-
+    const {visible, dm, setVisible, setDM} = useOutletContext<DMSProps>()
+    const navigate = useNavigate()
 
     // useEffect (() => {
     //     (async () => {
@@ -68,13 +72,27 @@ export default function DM(props: DMProps) {
     //     })()
     // }, [visible])
 
+    const handleBackClick = () => {
+        setVisible(false)                        
+        setTimeout(() => {
+            setDM(null)
+            navigate('/dashboard/dms')                            
+        }, 30)   
+ 
+   
+
+    }
+
     const messages = test.map( (message) => {
         return <Message message={message}/>
     })
+
+    if (!dm) return null
+
     return (
         <div className={visible ? 'dm-window' : 'dm-window hidden'}>
             <div className='dm-header'>
-                <button>back</button>
+                <button onClick={handleBackClick}>back</button>
               <div className='dm-avatar'>
                 {dm.username.charAt(0).toUpperCase()}
               </div>
