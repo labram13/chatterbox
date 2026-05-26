@@ -52,7 +52,7 @@ const test:Message[] = [
         created_at: new Date()
     },
     {
-        message_id: '1',
+        message_id: '2',
         fk_dm: '2', 
         context: 'test2',
         sender: '1',
@@ -73,18 +73,23 @@ export default function DM(props: DMProps) {
     // }, [visible])
 
     const handleBackClick = () => {
-        setVisible(false)                        
+        setVisible(!visible)
+
         setTimeout(() => {
+            navigate('/dashboard/dms')
             setDM(null)
-            navigate('/dashboard/dms')                            
-        }, 30)   
- 
-   
+        }, 100)
+        
+        // 
+        
+        
 
     }
 
+
+
     const messages = test.map( (message) => {
-        return <Message message={message}/>
+        return <Message key={message.message_id} message={message}/>
     })
 
     if (!dm) return null

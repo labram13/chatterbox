@@ -63,9 +63,8 @@ export default function DMS(props: DMSProps) {
     const navigate = useNavigate()
  
     const handleDMClick = (user: DMInfo) => {
-        // setVisible(!visible)
         setDM(user)
-        setTimeout(() => setVisible(!visible), 30)  
+        setTimeout(() => setVisible(!visible), 50)  
     }
 
 
@@ -95,7 +94,7 @@ export default function DMS(props: DMSProps) {
 
     }, [setHeader, navigate])
 
-    console.log(visible)
+    // console.log(visible)
 
     const dms = dmList.map((dm:DMInfo, n) => {
         return <DM setDM={setDM} handleDMClick={handleDMClick} dm_id={dm.dm_id} username={dm.username} key={n} />
