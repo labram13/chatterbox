@@ -67,6 +67,13 @@ export default function DMS(props: DMSProps) {
         setTimeout(() => setVisible(!visible), 50)  
     }
 
+    useEffect(() => {
+        if (location.pathname === '/dashboard/dms') {
+            setVisible(false)
+            setDM(null)
+        }
+    }, [location.pathname])
+
 
     useEffect(() => {
 
@@ -92,7 +99,7 @@ export default function DMS(props: DMSProps) {
 
 
 
-    }, [setHeader, navigate])
+    }, [setHeader])
 
     // console.log(visible)
 
