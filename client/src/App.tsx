@@ -70,9 +70,8 @@ function App() {
           <Route path='/' element={<Navigate to='/dashboard' />}/>
           <Route path="/dashboard"  element={<Dashboard />}>
             <Route index element={<Navigate to='dms'/>} />
-            <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>}>
-              <Route path=':id' element={<DM user={user} />}/>
-            </Route>
+            <Route path='dms' element={<DMS setIsLoggedIn={setIsLoggedIn}/>} />
+            <Route path='dms/:id' element={<DM />}/>
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
