@@ -1,5 +1,5 @@
 import {  useEffect } from "react"
-import {useOutletContext, Outlet} from 'react-router-dom'
+import {useOutletContext, useLocation} from 'react-router-dom'
 import '../css/DM.css'
 
 
@@ -16,9 +16,13 @@ type HeaderContext = {
 }
 
 export default function DM() {
+    const location = useLocation()
     const {setHeader} = useOutletContext<HeaderContext>()
+    const username = location.state.username
+
     useEffect(() => {
-        setHeader('DM')
+        setHeader(username)
+        console.log(username)
     })
 
     return (

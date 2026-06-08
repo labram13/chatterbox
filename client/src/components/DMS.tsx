@@ -25,7 +25,7 @@ function DM(props: DMInfo) {
     const username = props.username
 
     return (
-        <Link to={`/dashboard/dms/${dm_id}`} >
+        <Link to={`/dashboard/dms/${dm_id}`} state={{username}}>
             <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
                     <h2>
