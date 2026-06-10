@@ -56,9 +56,9 @@ router.get('/dms', authenticateToken, async (req, res) => {
 
 })
 
-router.get('/', authenticateToken, async (req, res) => {
-
-
+router.get('/:id', authenticateToken, async (req, res) => {
+    console.log(req.params)
+    res.json({status: 'test'})
 
 })
 
