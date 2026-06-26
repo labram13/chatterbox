@@ -1,3 +1,8 @@
+.dms-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .dm-container {
     display: flex;
 }
@@ -34,4 +39,13 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 35ch;
+}
+
+.background-overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    z-index: 999;
 }

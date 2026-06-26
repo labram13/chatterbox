@@ -1,0 +1,14 @@
+
+
+.users-window {
+    border-style: solid;
+    position: absolute;
+    /* transform: translate(50%, 50%); */
+    top: 20%;
+    z-index: 1000;
+    height: 50%;
+    width: 80%;
+    display: flex;
+    background: white;
+    align-self: center;
+}

@@ -2,6 +2,7 @@ import {useOutletContext, Link, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import { Outlet } from 'react-router-dom'
 import type {Dispatch} from 'react'
+import NewDMWindow from './NewDMWindow'
 
 import '../css/DMS.css'
 
@@ -53,7 +54,8 @@ export default function DMS(props: DMSProps) {
 
     const {setHeader} = useOutletContext<HeaderContext>()
     const [dmList, setDmList] = useState<DMInfo[]>([]) 
-
+    const [showWindow, setShowWindow] = useState<boolean>(true)
+ 
     useEffect(() => {
 
         (async () => {
@@ -83,8 +85,14 @@ export default function DMS(props: DMSProps) {
 
 
     return (
-        <div>
+        <div className='dms-container'>
+            <div>
+                <button>Add Friend</button>
+            </div>
             {dms}
+            {showWindow && <NewDMWindow />}
+            {showWindow && <div className='background-overlay'></div>}
+
         </div>
     )
 }
