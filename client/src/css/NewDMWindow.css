@@ -19,3 +19,13 @@
     justify-content: space-between;
     
 }
+
+.users-list {
+    display: flex;
+    gap: 2rem;
+}
+
+.select-user-container {
+    display: flex;
+    flex-direction: column;
+}

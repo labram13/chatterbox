@@ -25,6 +25,23 @@ type UserCredentials = {
     password: string
 }
 
+router.get('/', authenticateToken, async (req, res) => {
+
+    try {
+        
+        const users = await pool.query(
+
+            'SELECT user_id, username FROM users'
+        )
+        res.json({status: 'success', users: users.rows})
+        // res.json({status: 'success'})
+
+    } catch (err) {
+        res.status(500).json({error:err})
+    }
+
+})
+
 router.post('/register', async (req, res) => {
 
 
