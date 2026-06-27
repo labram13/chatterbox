@@ -11,11 +11,14 @@
     display: flex;
     background-color: red;
     flex-grow: 0;
-    height: 60px;
-    width: 60px;
+    flex-shrink: 0;
+    height: 40px;
+    width: 40px;
     text-align: center;
-    justify-content:center ;
-    border-radius: 100%;
+    border-radius: 50%;
+    justify-content:center;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 h2 {
@@ -38,7 +41,7 @@ a {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 35ch;
+    max-width: 25ch;
 }
 
 .background-overlay {

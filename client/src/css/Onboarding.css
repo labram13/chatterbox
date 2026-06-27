@@ -11,9 +11,6 @@ form {
     border-radius: .25rem;
 }
 
-h2 {
-    align-self: center;
-}
 
 form input {
     height: 2rem;
@@ -54,6 +51,7 @@ form svg {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
 }
 

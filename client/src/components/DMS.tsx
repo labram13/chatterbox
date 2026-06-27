@@ -29,10 +29,7 @@ function DM(props: DMInfo) {
         <Link to={`/dashboard/dms/${dm_id}`} state={{username}}>
             <div id={props.dm_id} className='dm-container'>
                 <div className='avatar'>
-                    <h2>
-
                     {props.username.charAt(0).toUpperCase()}
-                    </h2>
                 </div>
                 <div className='dm-main'>
                     <div className='receiver'>
@@ -54,7 +51,7 @@ export default function DMS(props: DMSProps) {
 
     const {setHeader} = useOutletContext<HeaderContext>()
     const [dmList, setDmList] = useState<DMInfo[]>([]) 
-    const [showWindow, setShowWindow] = useState<boolean>(true)
+    const [showWindow, setShowWindow] = useState<boolean>(false)
  
     useEffect(() => {
 
@@ -78,6 +75,10 @@ export default function DMS(props: DMSProps) {
 
     }, [setHeader])
 
+    function handlePopup() {
+        setShowWindow(!showWindow)
+    }
+
 
     const dms = dmList.map((dm:DMInfo, n) => {
         return <DM dm_id={dm.dm_id} username={dm.username} key={n} />
@@ -87,10 +88,10 @@ export default function DMS(props: DMSProps) {
     return (
         <div className='dms-container'>
             <div>
-                <button>Add Friend</button>
+                <button onClick={handlePopup}>Add Friend</button>
             </div>
             {dms}
-            {showWindow && <NewDMWindow />}
+            {showWindow && <NewDMWindow handlePopup={handlePopup}/>}
             {showWindow && <div className='background-overlay'></div>}
 
         </div>
