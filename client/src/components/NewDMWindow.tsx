@@ -10,9 +10,32 @@ type User = {
     username: string
 }
 
+
 function User(props: User) {
+
+    async function handleUserClick(user: User) {
+        console.log("test")
+        console.log(user.username, user.user_id)
+
+        const response = await fetch('/api/room', {
+            credentials: 'include',
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: user
+            })
+
+        })
+
+        const responseJson = await response.json()
+
+        console.log(responseJson.status)
+    }
+
     return (
-        <button className='select-user-container'>
+        <button onClick={() => handleUserClick(props)} className='select-user-container'>
             <div className='avatar'>
                 {props.username.charAt(0).toUpperCase()}
             </div>
