@@ -3,7 +3,6 @@
 .users-window {
     border-style: solid;
     position: absolute;
-    /* transform: translate(50%, 50%); */
     top: 20%;
     z-index: 1000;
     height: 50%;
