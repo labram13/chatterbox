@@ -21,7 +21,7 @@ router.post('/', authenticateToken, roomCheck, async (req, res) => {
 
         console.log(newRoom.rows[0].room_id)
 
-        const memberOne = await pool.query(
+        const newMembers = await pool.query(
             `
             INSERT INTO members (fk_room, fk_user)
             VALUES
