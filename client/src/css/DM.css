@@ -1,33 +1,24 @@
+.dm-page-container {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: auto 1fr auto;
+
+}
+
+h1 {
+    background-color: black;
+    color: white;
+}
+
 .message-container {
     display: flex;
+    background-color: white;
+    color: black
 }
 
-.message-header {
-    display: flex;
-    gap: 0.5rem;
-    /* align-items: baseline; */
-        /* line-height: 1; */
-
-
-}
-
-.timestamp {
-    font-size: 10px;
-    color: gray;
-      align-self: flex-end;
-
-}
-
-.message-main {
-    display: flex;
-    flex-direction: column;
-}
-
-.message-user {
-    line-height: 1;
-}
-
-
-.message-body {
-    margin-top: 0.5rem;
+.input-container {
+    height: 80px;
+    background-color: black;
+    color: white;
 }

@@ -1,4 +1,4 @@
-import {  useEffect } from "react"
+import {  useEffect, useState } from "react"
 import {useOutletContext, useLocation} from 'react-router-dom'
 import '../css/DM.css'
 
@@ -11,43 +11,39 @@ type Message = {
     created_at: Date
 }
 
-type HeaderContext = {
-    setHeader: React.Dispatch<React.SetStateAction<string>>
-}
-
-// const Messages = [
-//     {
-//         message_id: '1',
-//         fk_dm: '1',
-//         context: 'Hello, how are you?',
-//         sender: 'Alice',
-//         created_at: new Date()
-//     },
-//     {
-//         message_id: '2',
-//         fk_dm: '1',
-//         context: 'I am good, thanks! How about you?',
-//         sender: 'Bob',
-//         created_at: new Date()
-//     }
-// ]
+const Messages = [
+    {
+        message_id: '1',
+        fk_dm: '1',
+        context: 'Hello, how are you?',
+        sender: 'Alice',
+        created_at: new Date()
+    },
+    {
+        message_id: '2',
+        fk_dm: '1',
+        context: 'I am good, thanks! How about you?',
+        sender: 'Bob',
+        created_at: new Date()
+    }
+]
 export default function DM() {
-    // const location = useLocation()
-    // const {setHeader} = useOutletContext<HeaderContext>()
-    // const username = location.state.username
+    const location = useLocation()
+    const username = location.state.username
 
-    // useEffect(() => {
-    //     setHeader(username)
-    //     console.log(username)
-    // })
 
-    // const msgs = Messages.map((msg) => {
-    //     return <Message key={msg.message_id} {...msg}/>
-    // })
 
+
+    
     return (
-        <div>
-            test
+        <div className='dm-page-container'>
+            <h1>{username}</h1>
+            <div className='message-container'>
+                message
+            </div>
+            <div className='input-container'>
+                input
+            </div>
         </div>
     )
 }
