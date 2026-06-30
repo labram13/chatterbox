@@ -44,8 +44,8 @@ export async function roomAuthorization(req: Request, res: Response, next: NextF
 
     const userCheck = await pool.query(`
             SELECT * 
-            FROM message
-            WHERE sender = $1
+            FROM members
+            WHERE fk_user = $1
             AND
             fk_room = $2
             LIMIT 1

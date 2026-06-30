@@ -29,7 +29,7 @@ const Messages = [
 ]
 export default function DM() {
     const location = useLocation()
-    const username = location.state?.username
+    const username = location.state?.username ?? ''
     const {id} = useParams();
     const navigate = useNavigate()
 
@@ -48,6 +48,8 @@ export default function DM() {
             }
         })()
     })
+
+    console.log(username)
 
 
 
