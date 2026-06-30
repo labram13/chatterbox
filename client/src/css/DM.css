@@ -3,6 +3,7 @@
     height: 100vh;
     width: 100vw;
     grid-template-rows: auto 1fr auto;
+    background-color: white;;
 
 }
 
@@ -21,4 +22,11 @@ h1 {
     height: 80px;
     background-color: black;
     color: white;
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2rem;
 }
