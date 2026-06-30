@@ -12,7 +12,7 @@ type HeaderContext = {
 }
 
 interface DMInfo  {
-    dm_id: string,
+    fk_room: string,
     username: string,
 }
 
@@ -22,12 +22,12 @@ type DMSProps = {
 }
 
 function DM(props: DMInfo) {
-    const dm_id = props.dm_id
+    const dm_id = props.fk_room.toString()
     const username = props.username
 
     return (
-        <Link to={`/dashboard/dms/${dm_id}`} state={{username}}>
-            <div id={props.dm_id} className='dm-container'>
+        <Link to={`/${dm_id}`} state={{username}}>
+            <div id={props.fk_room} className='dm-container'>
                 <div className='avatar'>
                     {props.username.charAt(0).toUpperCase()}
                 </div>
@@ -58,7 +58,7 @@ export default function DMS(props: DMSProps) {
         (async () => {
             setHeader('Direct Messages')
 
-            const response = await fetch('/api/message/dms', {
+            const response = await fetch('/api/room', {
                 method: 'GET',
                 credentials: 'include'
             })
@@ -70,19 +70,22 @@ export default function DMS(props: DMSProps) {
 
                 const responseJson = await response.json();
                 const dmList: DMInfo[] = responseJson.dmList
+                console.log(responseJson.dmList)
                 setDmList(dmList)
         })()
 
     }, [setHeader])
+    
+    console.log(dmList)
 
     function handlePopup() {
         setShowWindow(!showWindow)
     }
 
-
-    const dms = dmList.map((dm:DMInfo, n) => {
-        return <DM dm_id={dm.dm_id} username={dm.username} key={n} />
+    const dms = dmList.map((dm) => {
+        return <DM key={dm.fk_room} {...dm} />
     })
+
 
 
     return (

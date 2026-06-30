@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard'
 import Groups from './components/Groups'
 import DMS from './components/DMS'
 import Profile from './components/Profile'
-// import DM from './components/DM'
+import DM from './components/DM'
 import {useState, useEffect} from 'react'
 
 
@@ -74,6 +74,8 @@ function App() {
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
+          <Route path='/:id' element={<DM />} />
+
           
         </Route>
 
