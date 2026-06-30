@@ -1,5 +1,6 @@
 import express from 'express'
 import { authenticateToken } from '../../middleware/auth'
+import { roomAuthorization } from '../../middleware/room'
 import pool from '../../config/db'
 const router = express()
 
@@ -17,9 +18,9 @@ type Message = {
     created_at: Date
 }
 
-
-router.get('/:id', authenticateToken, async (req, res) => {
-    console.log(req.params)
+//create middleware check if user belongs to room
+router.get('/:id', authenticateToken, roomAuthorization, async (req, res) => {
+    console.log('hit get messages')
     res.json({status: 'test'})
 
 })

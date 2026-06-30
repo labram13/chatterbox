@@ -1,5 +1,5 @@
-import {  useEffect, useState } from "react"
-import {useOutletContext, useLocation} from 'react-router-dom'
+import {  useEffect } from "react"
+import { useLocation, useParams, useNavigate} from 'react-router-dom'
 import '../css/DM.css'
 
 
@@ -29,8 +29,25 @@ const Messages = [
 ]
 export default function DM() {
     const location = useLocation()
-    const username = location.state.username
+    const username = location.state?.username
+    const {id} = useParams();
+    const navigate = useNavigate()
 
+    useEffect( () => {
+        (async () => {
+            const response = await fetch(`/api/message/${id}`, {
+                method: 'GET',
+                credentials: 'include'   
+            })
+
+            const responseJson = await response.json()
+            console.log(responseJson.status)
+
+            if (!response.ok) {
+                navigate('/unauthorized')
+            }
+        })()
+    })
 
 
 

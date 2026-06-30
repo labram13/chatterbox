@@ -36,3 +36,27 @@ export async function roomCheck(req:Request, res:Response, next:NextFunction) {
     //else return room id for user to navigate to
 
 }
+
+export async function roomAuthorization(req: Request, res: Response, next: NextFunction) {
+
+    console.log('hit room authorization check')
+    console.log(req.user?.user_id)
+
+    const userCheck = await pool.query(`
+            SELECT * 
+            FROM message
+            WHERE sender = $1
+            AND
+            fk_room = $2
+            LIMIT 1
+        `, [req.user?.user_id, req.params.id])
+    
+    console.log(userCheck.rows.length === 1)
+
+    if (userCheck.rows.length === 1) {
+        next()
+    } else {
+        return res.status(400).json({status: 'user not authorized'})
+    }
+    
+}
