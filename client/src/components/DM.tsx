@@ -52,7 +52,10 @@ export default function DM() {
                 {msgs}
             </div>
             <div className='input-container'>
-                input
+                <input type='text' id='message' name='message'/>
+                <button id='send'>
+                    Send
+                </button>
             </div>
         </div>
     )

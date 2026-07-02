@@ -19,9 +19,14 @@ h1 {
 }
 
 .input-container {
-    height: 80px;
+    height: 3.5rem;
     background-color: black;
     color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.5rem;
 }
 
 .messages-container {
@@ -29,4 +34,14 @@ h1 {
     flex-direction: column;
     justify-content: flex-end;
     gap: 2rem;
+}
+
+#message {
+    flex-grow: 2;
+    height: 2.5rem;
+}
+
+#send {
+    flex-grow: 1;
+    height: 2.5rem;
 }
