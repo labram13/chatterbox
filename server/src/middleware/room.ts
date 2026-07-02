@@ -7,6 +7,7 @@ dotenv.config()
 
 
 export async function roomCheck(req:Request, res:Response, next:NextFunction) {
+    console.log('hit roomCheck middleware')
 
     const sameRoom = await pool.query(
         `
@@ -31,7 +32,7 @@ export async function roomCheck(req:Request, res:Response, next:NextFunction) {
         next()
     } else {
         console.log('room exists already with the members in it', sameRoom.rows[0].fk_room)
-        return res.json({status: 'room already exists', room: sameRoom.rows[0].fk_room})
+        return res.json({status: 'room exists', room: sameRoom.rows[0].fk_room})
     }
     //else return room id for user to navigate to
 
