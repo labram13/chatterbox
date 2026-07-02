@@ -17,6 +17,7 @@ export default function DM() {
     const {id} = useParams();
     const navigate = useNavigate()
     const [messages, setMessages] = useState<Message[]>([])
+    const [inputMessage, setInputMessage] = useState<String | null>(null)
 
     useEffect( () => {
         (async () => {
@@ -42,6 +43,15 @@ export default function DM() {
         return <Message key={msg.message_id} {...msg}/>
     })
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const form = e.currentTarget;
+        const formData = new FormData(form)
+        const formJson = Object.fromEntries(formData.entries())
+        console.log(formJson)
+    }
+    console.log(inputMessage)
 
 
     
@@ -51,12 +61,13 @@ export default function DM() {
             <div className='messages-container'>
                 {msgs}
             </div>
-            <div className='input-container'>
-                <input type='text' id='message' name='message'/>
-                <button id='send'>
-                    Send
-                </button>
-            </div>
+            <form onSubmit={handleSubmit} id='message-form'>
+                    <input onChange={e => setInputMessage(e.target.value)} type='text' id='message' name='message'/>
+                    {inputMessage && <button type='submit' id='send'>
+                        Send
+                    </button>}
+    
+            </form>
         </div>
     )
 }
