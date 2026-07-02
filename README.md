@@ -44,7 +44,7 @@ A full-stack chat chat application with a goal of sending messages to individual
 
 
 ### Database Schema (In Progress)
-![Screenshot of database schema](./project-images/schema.jpg)
+![Screenshot of database schema](./project-images/schema.png)
 
 
 
@@ -66,17 +66,21 @@ A full-stack chat chat application with a goal of sending messages to individual
 - POST /verify
     - uses authenticate middleware to verify users tokens
 
+### ROOM
+- POST /room
+    - add new room and members to it
+- GET /room 
+    - retrieve all Direct Message rooms user is part of
+
 #### Message
-- GET /dms
-    - retrieves a list of direct messages with users from Postgresql DB
-- POST /message
-    - Adds new message with user_id for both sender and recipient. Message text is required. Img url (media) is not
+- POST /message/:id
+    -  Add new message connect to the room id
 - GET /message/:id
-    - retrieves all messages sent to and received by recipient.
+    - retrieves all messages belonging to specific room id
 - PUT /message/:id
-    - updates message
+    - updates message of the room id
 - DELETE /message/:id
-    - deletes message from database
+    - deletes message from belonging to the room id
 
 ### Figma Design
 
