@@ -43,15 +43,30 @@ export default function DM() {
         return <Message key={msg.message_id} {...msg}/>
     })
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-
+        
         const form = e.currentTarget;
         const formData = new FormData(form)
         const formJson = Object.fromEntries(formData.entries())
-        console.log(formJson)
+        // console.log(formJson)
+        
+        const response = await fetch(`/api/message/${id}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: formJson.message
+            })
+        })
+
+        const responseJson = await response.json()
+
+        console.log(responseJson.message)
+        setMessages([...messages, responseJson.message])
     }
-    console.log(inputMessage)
 
 
     
@@ -85,10 +100,14 @@ function Message(props: Message) {
                 <div className="message-header">
                     <div className="message-user">{props.username}</div>
                     <div className="timestamp">
-                        {new Date(props.created_at).toLocaleTimeString([], {
+                        {new Date(props.created_at).toLocaleString('en-US', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            year: 'numeric',
                             hour: 'numeric',
                             minute: '2-digit'
-                        })}
+                            })}
+                        {/* {props.created_at.toLocaleString()} */}
                     </div>
                 </div>
                 <div className="message-body">
