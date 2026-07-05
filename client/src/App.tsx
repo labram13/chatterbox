@@ -7,7 +7,9 @@ import Groups from './components/Groups'
 import DMS from './components/DMS'
 import Profile from './components/Profile'
 import DM from './components/DM'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
+import {io} from 'socket.io-client'
+import type {Socket} from 'socket.io-client'
 
 
  
@@ -21,6 +23,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
   const [user, setUser] = useState<User | null>(null)
+  const socket = useRef<Socket | null>(null)
   function AuthCheckDashboard() {
     return isLoggedIn ? <Outlet /> : <Navigate to='/login' replace/>
   }

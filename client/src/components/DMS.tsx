@@ -70,13 +70,13 @@ export default function DMS(props: DMSProps) {
 
                 const responseJson = await response.json();
                 const dmList: DMInfo[] = responseJson.dmList
-                console.log(responseJson.dmList)
+                // console.log(responseJson.dmList)
                 setDmList(dmList)
         })()
 
     }, [setHeader])
     
-    console.log(dmList)
+    // console.log(dmList)
 
     function handlePopup() {
         setShowWindow(!showWindow)
