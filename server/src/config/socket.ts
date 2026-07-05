@@ -14,5 +14,9 @@ export default function socketConnection(httpServer: httpServer): socketServer {
         socket.emit('hello', 'world')
     })
 
+    io.on('disconnect', (socket: Socket) => {
+        console.log('user disconnected')
+    })
+
     return io
 }

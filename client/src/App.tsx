@@ -32,7 +32,16 @@ function App() {
     return isLoggedIn ? <Navigate to='/dashboard' replace/> : <Outlet />
   }
 
-
+  useEffect( () => {
+    if (isLoggedIn) {
+      socket.current = io('http://localhost:3001', {
+        withCredentials: true
+      })
+      socket.current.on('hello', (arg) => {
+        console.log(arg)
+      })
+    }
+  },[isLoggedIn])
   
 
   useEffect( () => {
@@ -46,6 +55,8 @@ function App() {
     if (!response.ok) {
       setUser(null)
       setIsLoggedIn(false)
+      socket.current?.disconnect()
+      socket.current = null
       return
     }
 
