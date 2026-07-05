@@ -1,6 +1,8 @@
 import {  useEffect, useState } from "react"
+import type { RefObject } from 'react'
 import { useLocation, useParams, useNavigate} from 'react-router-dom'
 import '../css/DM.css'
+import {Socket} from 'socket.io-client'
 
 
 type Message = {
@@ -11,7 +13,11 @@ type Message = {
     created_at: string
 }
 
-export default function DM() {
+interface DMProps {
+    socket: RefObject<Socket | null>
+}
+
+export default function DM(props: DMProps) {
     const location = useLocation()
     const username = location.state?.username ?? ''
     const {id} = useParams();

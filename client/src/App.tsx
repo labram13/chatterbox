@@ -88,7 +88,7 @@ function App() {
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
-          <Route path='/:id' element={<DM />} />
+          <Route path='/:id' socket={socket} element={<DM />} />
 
           
         </Route>
