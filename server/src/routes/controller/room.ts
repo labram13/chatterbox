@@ -19,7 +19,7 @@ router.post('/', authenticateToken, roomCheck, async (req, res) => {
             ['dm']
         )
 
-        console.log(newRoom.rows[0].room_id)
+        // console.log(newRoom.rows[0].room_id)
 
         const newMembers = await pool.query(
             `
@@ -54,7 +54,7 @@ router.get('/', authenticateToken, async (req, res) => {
             [req.user?.user_id]
         )
 
-        console.log('dmlist', dmList.rows)
+        // console.log('dmlist', dmList.rows)
         res.status(200).json({status: 'success', dmList: dmList.rows})
         
     } catch (error) {

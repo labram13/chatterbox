@@ -33,7 +33,7 @@ function App() {
   }
 
   useEffect( () => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !socket.current) {
       socket.current = io('http://localhost:3001', {
         withCredentials: true
       })
@@ -74,7 +74,8 @@ function App() {
     return <div>Loading...</div>
   }
 
- 
+  
+
 
   return (
     <div className="container">
@@ -88,7 +89,7 @@ function App() {
             <Route path='groups' element={<Groups />}/>
             <Route path='profile' element={<Profile />}/>
           </Route>
-          <Route path='/:id' socket={socket} element={<DM />} />
+          <Route path='/:id' element={<DM socket={socket} />} />
 
           
         </Route>

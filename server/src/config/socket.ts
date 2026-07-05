@@ -12,10 +12,32 @@ export default function socketConnection(httpServer: httpServer): socketServer {
     io.on('connection', (socket: Socket) => {
         console.log('user connect', socket.id)
         socket.emit('hello', 'world')
-    })
 
-    io.on('disconnect', (socket: Socket) => {
-        console.log('user disconnected')
+
+        socket.on('join room', (arg) => {
+            console.log('joined room', arg)
+            socket.join(arg)
+            
+        })
+
+        socket.on('new message', (arg) => {
+            console.log('hitting joined room socket')
+            socket.to(arg.id).emit('new message', arg)
+        })
+        
+
+        socket.on('leave room', (arg) => {
+            console.log('left room', arg)
+            socket.leave(arg)
+        })
+
+
+        socket.on('disconnect', () => {
+            console.log('user disconnected')
+            socket.disconnect(true)
+        })
+
+       
     })
 
     return io

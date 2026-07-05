@@ -23,7 +23,7 @@ export default function DM(props: DMProps) {
     const {id} = useParams();
     const navigate = useNavigate()
     const [messages, setMessages] = useState<Message[]>([])
-    const [inputMessage, setInputMessage] = useState<String | null>(null)
+    const [inputMessage, setInputMessage] = useState<string>('')
 
     useEffect( () => {
         (async () => {
@@ -32,18 +32,26 @@ export default function DM(props: DMProps) {
                 credentials: 'include'   
             })
 
-            
-
             if (!response.ok) {
                 navigate('/unauthorized')
             } else {
+                props.socket.current?.emit('join room', id)
                 const responseJson = await response.json()
-                // console.log(responseJson.messages)
                 setMessages(responseJson.messages)
-
             }
         })()
+
+        return () => {
+            props.socket.current?.emit('leave room', id)
+        }
     }, [])
+
+    useEffect(() => {
+        props.socket.current?.on('new message', (arg) => {
+        setMessages([...messages, arg.message])
+        })
+    })
+
 
     const msgs = messages.map((msg) => {
         return <Message key={msg.message_id} {...msg}/>
@@ -68,13 +76,25 @@ export default function DM(props: DMProps) {
             })
         })
 
-        const responseJson = await response.json()
+        if (!response.ok) {
+            navigate('/unauthorized')
+        } else {
+            const responseJson = await response.json()
+            setMessages([...messages, responseJson.message])
+            // props.socket.current?.emit('new message', 'successfully sent message')
+            // props.socket.current!.emit('new message', 'successfully sent message')
+            props.socket.current?.emit('new message', {id: id, message: responseJson.message})
+            setInputMessage("")
+        }
 
-        console.log(responseJson.message)
-        setMessages([...messages, responseJson.message])
     }
 
+    function handleEmit() {
+        props.socket.current?.emit('new message', {username: username, id: id})
 
+    }
+
+    // console.log(inputMessage)
     
     return (
         <div className='dm-page-container'>
@@ -82,8 +102,9 @@ export default function DM(props: DMProps) {
             <div className='messages-container'>
                 {msgs}
             </div>
+            <button onClick={handleEmit} >Emit</button>
             <form onSubmit={handleSubmit} id='message-form'>
-                    <input onChange={e => setInputMessage(e.target.value)} type='text' id='message' name='message'/>
+                    <input onChange={e => setInputMessage(e.target.value)} value={inputMessage ?? ""} type='text' id='message' name='message'/>
                     {inputMessage && <button type='submit' id='send'>
                         Send
                     </button>}
