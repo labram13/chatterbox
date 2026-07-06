@@ -26,7 +26,7 @@ export default function DM(props: DMProps) {
     const [inputMessage, setInputMessage] = useState<string>('')
     const ref = useRef<HTMLDivElement>(null)
 
-    console.log(location.state)
+    // console.log(location.state)
 
     useEffect( () => {
         (async () => {
@@ -51,13 +51,15 @@ export default function DM(props: DMProps) {
     }, [])
 
     useEffect(() => {
-        props.socket.current?.on('new message', (arg) => {
+        const newMessageHandler =  (arg: any) => {
         setMessages(prev => [...prev, arg.message])
-        })
+        }
+
+        props.socket.current?.on('new message', newMessageHandler)
 
         return () => {
             // console.log('left event listener for new message')
-            props.socket.current?.off('new message')
+            props.socket.current?.off('new message', newMessageHandler)
         }
     },[])
 

@@ -17,7 +17,8 @@ we use socket.to
         - example: socket.to(arg.roomid).emit('new message', arg.message)
 - finally, client has a useEffect that listens to the event 'new-message'
     - user will only get events inside 'new message' if only part of the room emitted to (socket.to(arg.roomid))
-
+- remember to close listening events on client side using socket.off('new message', handler) or you can
+not put the handler and turn all functions off
 
 */
 
@@ -54,7 +55,7 @@ export default function socketConnection(httpServer: httpServer): socketServer {
 
         socket.on('disconnect', () => {
             console.log('user disconnected')
-            socket.disconnect(true)
+            socket.disconnect()
         })
 
        
