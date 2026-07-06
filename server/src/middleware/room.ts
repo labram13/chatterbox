@@ -6,37 +6,37 @@ dotenv.config()
 
 
 
-export async function roomCheck(req:Request, res:Response, next:NextFunction) {
-    console.log('hit roomCheck middleware')
+// export async function roomCheck(req:Request, res:Response, next:NextFunction) {
+//     console.log('hit roomCheck middleware')
 
-    const sameRoom = await pool.query(
-        `
-        SELECT m1.fk_room
-        FROM members m1
-        JOIN members m2
-        ON m1.fk_room = m2.fk_room
-        WHERE m1.fk_user = $1
-        AND m2.fk_user = $2 
-        `,
-        [req.user?.user_id, req.body.user.user_id]
-    )
+//     const sameRoom = await pool.query(
+//         `
+//         SELECT m1.fk_room
+//         FROM members m1
+//         JOIN members m2
+//         ON m1.fk_room = m2.fk_room
+//         WHERE m1.fk_user = $1
+//         AND m2.fk_user = $2 
+//         `,
+//         [req.user?.user_id, req.body.user.user_id]
+//     )
 
-    // console.log(sameRoom.rows)
+//     // console.log(sameRoom.rows)
 
-    // console.log("usercheck", req.user)
-    // console.log('user sent over for request', req.body.user)
+//     // console.log("usercheck", req.user)
+//     // console.log('user sent over for request', req.body.user)
 
-    //if rows are empty, hit next
-    if (sameRoom.rows.length === 0) {
-        console.log('no room returned')
-        next()
-    } else {
-        console.log('room exists already with the members in it', sameRoom.rows[0].fk_room)
-        return res.json({status: 'room exists', room: sameRoom.rows[0].fk_room})
-    }
-    //else return room id for user to navigate to
+//     //if rows are empty, hit next
+//     if (sameRoom.rows.length === 0) {
+//         console.log('no room returned')
+//         next()
+//     } else {
+//         console.log('room exists already with the members in it', sameRoom.rows[0].fk_room)
+//         return res.json({status: 'room exists', room: sameRoom.rows[0].fk_room})
+//     }
+//     //else return room id for user to navigate to
 
-}
+// }
 
 export async function roomAuthorization(req: Request, res: Response, next: NextFunction) {
 

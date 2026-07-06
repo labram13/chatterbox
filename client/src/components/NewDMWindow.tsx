@@ -17,7 +17,7 @@ function User(props: User) {
 
     async function handleUserClick(user: User) {
 
-        const response = await fetch('/api/room', {
+        const response = await fetch('/api/room/check', {
             credentials: 'include',
             method: 'POST', 
             headers: {
@@ -30,9 +30,13 @@ function User(props: User) {
         })
 
         const responseJson = await response.json()
+        console.log(responseJson.exists)
+        if (responseJson.exists) {
 
-
-        navigate(`/${responseJson.room}`, {state: props.username})
+            navigate(`/${responseJson.room}`, {state: props.username})
+        } else {
+            navigate(`/new-dm/${props.user_id}`, {state: props.username})
+        }
 
         
     }

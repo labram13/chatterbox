@@ -9,7 +9,7 @@ Notes for Socket.io usage
     - once done, server side listens for the event 'join room', then uses socket.join(room) from 'arg' to establish
     connection to the room
 -in order to emit messages to the specific room and to everyone else but the sender,
-we use socket.to
+we use socket.to (can only do this in server side, must emit in client, then socket.to in server)
     -client emits message with room id as arg as socket.emit('new message', roomid)
         - can add other objects to payload so can be {roomid: roomid, message: message}
     -server listens for new message event socket.on('new message')

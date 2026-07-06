@@ -7,6 +7,7 @@ import Groups from './components/Groups'
 import DMS from './components/DMS'
 import Profile from './components/Profile'
 import DM from './components/DM'
+import DMPrep from './components/DMPrep'
 import {useState, useEffect, useRef} from 'react'
 import {io} from 'socket.io-client'
 import type {Socket} from 'socket.io-client'
@@ -41,7 +42,7 @@ function App() {
       //   console.log(arg)
       // })
     }
-    console.log('test')
+    // console.log('test')
     return () => {
       socket.current?.disconnect();
       socket.current = null;
@@ -95,6 +96,7 @@ function App() {
             <Route path='profile' element={<Profile />}/>
           </Route>
           <Route path='/:id' element={<DM socket={socket} />} />
+          <Route path='/new-dm/:id' element={<DMPrep />} />
 
           
         </Route>
