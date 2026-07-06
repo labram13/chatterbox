@@ -22,7 +22,7 @@ declare global {
 
 export function authenticateToken(req:Request, res:Response, next:NextFunction) {
     const {accessToken, refreshToken} = req.cookies
-    console.log("access token", accessToken, "refresh token", refreshToken)
+    // console.log("access token", accessToken, "refresh token", refreshToken)
     console.log("hit middleware")
 
     const accessSecret: string = process.env.ACCESS_TOKEN as string
@@ -85,7 +85,7 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
                         maxAge: 30 * 60 * 1000
                     })
                     req.user = userPayload as User
-                    console.log(req.user)
+                    // console.log(req.user)
                     return next()
 
                 })
@@ -96,7 +96,7 @@ export function authenticateToken(req:Request, res:Response, next:NextFunction) 
             const {created_at, exp, iat, ...userPayload} = currentPayload
             console.log('access token valid')
             req.user = userPayload as User
-            console.log(req.user)
+            // console.log(req.user)
 
             return next()
     })

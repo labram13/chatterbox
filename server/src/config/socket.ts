@@ -31,7 +31,7 @@ export default function socketConnection(httpServer: httpServer): socketServer {
 
     io.on('connection', (socket: Socket) => {
         console.log('user connect', socket.id)
-        socket.emit('hello', 'world')
+        // socket.emit('hello', 'world')
 
 
         socket.on('join room', (arg) => {

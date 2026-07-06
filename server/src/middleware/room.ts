@@ -41,7 +41,7 @@ export async function roomCheck(req:Request, res:Response, next:NextFunction) {
 export async function roomAuthorization(req: Request, res: Response, next: NextFunction) {
 
     console.log('hit room authorization check')
-    console.log(req.user?.user_id)
+    // console.log(req.user?.user_id)
 
     const userCheck = await pool.query(`
             SELECT * 
@@ -52,7 +52,7 @@ export async function roomAuthorization(req: Request, res: Response, next: NextF
             LIMIT 1
         `, [req.user?.user_id, req.params.id])
     
-    console.log(userCheck.rows.length === 1)
+    // console.log(userCheck.rows.length === 1)
 
     if (userCheck.rows.length === 1) {
         next()

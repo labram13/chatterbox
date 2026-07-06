@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react"
+import {  useEffect, useState, useRef } from "react"
 import type { RefObject } from 'react'
 import { useLocation, useParams, useNavigate} from 'react-router-dom'
 import '../css/DM.css'
@@ -24,6 +24,7 @@ export default function DM(props: DMProps) {
     const navigate = useNavigate()
     const [messages, setMessages] = useState<Message[]>([])
     const [inputMessage, setInputMessage] = useState<string>('')
+    const ref = useRef<HTMLDivElement>(null)
 
     useEffect( () => {
         (async () => {
@@ -48,9 +49,24 @@ export default function DM(props: DMProps) {
 
     useEffect(() => {
         props.socket.current?.on('new message', (arg) => {
-        setMessages([...messages, arg.message])
+        setMessages(prev => [...prev, arg.message])
         })
-    })
+
+        return () => {
+            props.socket.current?.off('new message')
+        }
+    },[])
+
+    useEffect(() => {
+        if (!ref.current) return;
+
+        // requestAnimationFrame(() => {
+        ref.current!.scrollTop = ref.current!.scrollHeight;
+    // });
+        
+    }, [messages])
+
+
 
 
     const msgs = messages.map((msg) => {
@@ -80,21 +96,22 @@ export default function DM(props: DMProps) {
             navigate('/unauthorized')
         } else {
             const responseJson = await response.json()
-            setMessages([...messages, responseJson.message])
-            // props.socket.current?.emit('new message', 'successfully sent message')
-            // props.socket.current!.emit('new message', 'successfully sent message')
+            setMessages(prev => [...prev, responseJson.message])
+      
             props.socket.current?.emit('new message', {id: id, message: responseJson.message})
             setInputMessage("")
         }
 
     }
 
+    // console.log(messages)
+
 
     
     return (
         <div className='dm-page-container'>
             <h1>{username}</h1>
-            <div className='messages-container'>
+            <div ref={ref} className='messages-container'>
                 {msgs}
             </div>
             <form onSubmit={handleSubmit} id='message-form'>

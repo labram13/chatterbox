@@ -37,9 +37,14 @@ function App() {
       socket.current = io('http://localhost:3001', {
         withCredentials: true
       })
-      socket.current.on('hello', (arg) => {
-        console.log(arg)
-      })
+      // socket.current.on('hello', (arg) => {
+      //   console.log(arg)
+      // })
+    }
+    console.log('test')
+    return () => {
+      socket.current?.disconnect();
+      socket.current = null;
     }
   },[isLoggedIn])
   
