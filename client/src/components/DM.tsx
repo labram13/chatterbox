@@ -89,12 +89,7 @@ export default function DM(props: DMProps) {
 
     }
 
-    function handleEmit() {
-        props.socket.current?.emit('new message', {username: username, id: id})
 
-    }
-
-    // console.log(inputMessage)
     
     return (
         <div className='dm-page-container'>
@@ -102,13 +97,11 @@ export default function DM(props: DMProps) {
             <div className='messages-container'>
                 {msgs}
             </div>
-            <button onClick={handleEmit} >Emit</button>
             <form onSubmit={handleSubmit} id='message-form'>
-                    <input onChange={e => setInputMessage(e.target.value)} value={inputMessage ?? ""} type='text' id='message' name='message'/>
+                    <input autoComplete="off" onChange={e => setInputMessage(e.target.value)} value={inputMessage ?? ""} type='text' id='message' name='message'/>
                     {inputMessage && <button type='submit' id='send'>
                         Send
                     </button>}
-    
             </form>
         </div>
     )
