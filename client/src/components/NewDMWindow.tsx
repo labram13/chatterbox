@@ -1,6 +1,6 @@
 import '../css/NewDMWindow.css'
 import {useEffect, useState} from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type NewDMWindowProps = {
     handlePopup: () => void;
@@ -32,7 +32,7 @@ function User(props: User) {
         const responseJson = await response.json()
 
 
-        navigate(`/${responseJson.room}`)
+        navigate(`/${responseJson.room}`, {state: props.username})
 
         
     }

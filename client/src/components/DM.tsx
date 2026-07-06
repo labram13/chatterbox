@@ -19,12 +19,14 @@ interface DMProps {
 
 export default function DM(props: DMProps) {
     const location = useLocation()
-    const username = location.state?.username ?? ''
+    const username = location.state ?? ''
     const {id} = useParams();
     const navigate = useNavigate()
     const [messages, setMessages] = useState<Message[]>([])
     const [inputMessage, setInputMessage] = useState<string>('')
     const ref = useRef<HTMLDivElement>(null)
+
+    console.log(location.state)
 
     useEffect( () => {
         (async () => {

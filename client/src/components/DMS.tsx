@@ -26,7 +26,7 @@ function DM(props: DMInfo) {
     const username = props.username
 
     return (
-        <Link to={`/${dm_id}`} state={{username}}>
+        <Link to={`/${dm_id}`} state={username}>
             <div id={props.fk_room} className='dm-container'>
                 <div className='avatar'>
                     {props.username.charAt(0).toUpperCase()}
