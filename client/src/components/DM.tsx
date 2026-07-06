@@ -43,6 +43,7 @@ export default function DM(props: DMProps) {
         })()
 
         return () => {
+            // console.log('left room')
             props.socket.current?.emit('leave room', id)
         }
     }, [])
@@ -53,6 +54,7 @@ export default function DM(props: DMProps) {
         })
 
         return () => {
+            // console.log('left event listener for new message')
             props.socket.current?.off('new message')
         }
     },[])
