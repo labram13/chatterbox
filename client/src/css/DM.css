@@ -2,7 +2,7 @@
     display: grid;
     height: 100vh;
     width: 100vw;
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto 1fr auto;
     background-color: white;
     /* display: flex; */
     /* flex-direction: column; */
@@ -17,7 +17,7 @@ h1 {
 .message-container {
     display: flex;
     background-color: white;
-    color: black
+    color: black;
 }
 
 #message-form {
@@ -47,9 +47,11 @@ h1 {
 .messages-container {
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; <<<<this was causing the container to not be scrollable*/
     gap: 2rem;
-    overflow-y: scroll;
+    overflow-y: auto;
+    min-height: 0;
+    height: auto;
+    padding-bottom: 1rem; /* add this */
   
 }
 

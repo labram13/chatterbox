@@ -18,8 +18,7 @@ interface DMProps {
 }
 
 export default function DM(props: DMProps) {
-    // const location = useLocation()
-    // const username = location.state ?? ''
+
     const [userInfo, setUserInfo] = useState<String>('') 
     const {id} = useParams();
     const navigate = useNavigate()
@@ -27,10 +26,17 @@ export default function DM(props: DMProps) {
     const [inputMessage, setInputMessage] = useState<string>('')
     const ref = useRef<HTMLDivElement>(null)
 
-    // console.log(location.state)
 
     useEffect( () => {
         (async () => {
+            const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
+                credentials: 'include',
+                method: 'GET'
+            })
+
+            const roomInfoJson = await roomInfo.json()
+            // console.log(roomInfoJson.roomInfo.rows[0])
+            setUserInfo(roomInfoJson.roomInfo.rows[0].username)
             const response = await fetch(`/api/message/${id}`, {
                 method: 'GET',
                 credentials: 'include'   
@@ -44,14 +50,14 @@ export default function DM(props: DMProps) {
                 setMessages(responseJson.messages)
             }
 
-            const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
-                credentials: 'include',
-                method: 'GET'
-            })
+            // const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
+            //     credentials: 'include',
+            //     method: 'GET'
+            // })
 
-            const roomInfoJson = await roomInfo.json()
-            console.log(roomInfoJson.roomInfo.rows[0])
-            setUserInfo(roomInfoJson.roomInfo.rows[0].username)
+            // const roomInfoJson = await roomInfo.json()
+            // // console.log(roomInfoJson.roomInfo.rows[0])
+            // setUserInfo(roomInfoJson.roomInfo.rows[0].username)
         })()
 
         return () => {
@@ -73,14 +79,18 @@ export default function DM(props: DMProps) {
         }
     },[])
 
-    useEffect(() => {
-        if (!ref.current) return;
+    // useEffect(() => {
+    //     if (!ref.current) return;
 
-        // requestAnimationFrame(() => {
-        ref.current!.scrollTop = ref.current!.scrollHeight;
-    // });
+    //     // requestAnimationFrame(() => {
+    //     ref.current!.scrollTop = ref.current!.scrollHeight;
+    // // });
         
-    }, [messages])
+    // }, [messages])
+
+useEffect(() => {
+    ref.current?.scrollIntoView({ block: 'end' })
+}, [messages])
 
 
 
@@ -127,8 +137,9 @@ export default function DM(props: DMProps) {
     return (
         <div className='dm-page-container'>
             <h1>{userInfo}</h1>
-            <div ref={ref} className='messages-container'>
+            <div className='messages-container'>
                 {msgs}
+                <div ref={ref} />
             </div>
             <form onSubmit={handleSubmit} id='message-form'>
                     <input autoComplete="off" onChange={e => setInputMessage(e.target.value)} value={inputMessage ?? ""} type='text' id='message' name='message'/>
