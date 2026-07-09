@@ -50,14 +50,6 @@ export default function DM(props: DMProps) {
                 setMessages(responseJson.messages)
             }
 
-            // const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
-            //     credentials: 'include',
-            //     method: 'GET'
-            // })
-
-            // const roomInfoJson = await roomInfo.json()
-            // // console.log(roomInfoJson.roomInfo.rows[0])
-            // setUserInfo(roomInfoJson.roomInfo.rows[0].username)
         })()
 
         return () => {
@@ -130,13 +122,19 @@ useEffect(() => {
 
     }
 
-    // console.log(messages)
+    function handleBackClick() {
+        navigate(`/dashboard`)
+    }
+
 
 
     
     return (
         <div className='dm-page-container'>
+        <div className='dm-header'>
+            <button onClick={handleBackClick}>back</button>
             <h1>{userInfo}</h1>
+        </div>
             <div className='messages-container'>
                 {msgs}
                 <div ref={ref} />

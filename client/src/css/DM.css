@@ -10,7 +10,7 @@
 }
 
 h1 {
-    background-color: black;
+    /* background-color: black; */
     color: white;
 }
 
@@ -24,7 +24,6 @@ h1 {
     height: 5rem;
     background-color: black;
     color: white;
-    padding: 0;
     margin: 0;
     width: auto;
     display: flex;
@@ -51,7 +50,6 @@ h1 {
     overflow-y: auto;
     min-height: 0;
     height: auto;
-    padding-bottom: 1rem; /* add this */
   
 }
 
@@ -63,4 +61,10 @@ h1 {
 
 .user-input{
     flex-grow:1;
+}
+
+.dm-header {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
 }

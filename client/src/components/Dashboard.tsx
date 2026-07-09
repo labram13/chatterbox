@@ -21,13 +21,17 @@ export default function Dashboard(props: Props) {
     //     console.log('you connect with id:', socket.id)
     //     console.log(arg)
     // })
+    const [headerButton, setHeaderButton] = useState<React.ReactNode>(null) 
 
     return (
         <div className='dash-container'>
-            <h1 className='dash-header'>{header}</h1>
+            <div className='dash-header'>
+                <h1>{header}</h1>
+                {headerButton}
+            </div>
             <Navbar />
             <main>
-                <Outlet context={{setHeader}}/>
+                <Outlet context={{setHeader, setHeaderButton}}/>
             </main>
             
             

@@ -9,6 +9,7 @@ import '../css/DMS.css'
 
 type HeaderContext = {
     setHeader: React.Dispatch<React.SetStateAction<string>>
+    setHeaderButton: React.Dispatch<React.SetStateAction<React.ReactNode>>;
 }
 
 interface DMInfo  {
@@ -29,7 +30,9 @@ function DM(props: DMInfo) {
         <Link to={`/${dm_id}`} state={username}>
             <div id={props.fk_room} className='dm-container'>
                 <div className='avatar'>
-                    {props.username.charAt(0).toUpperCase()}
+                    <p>
+                        {props.username.charAt(0).toUpperCase()}
+                    </p>
                 </div>
                 <div className='dm-main'>
                     <div className='receiver'>
@@ -49,7 +52,7 @@ function DM(props: DMInfo) {
 
 export default function DMS(props: DMSProps) {
 
-    const {setHeader} = useOutletContext<HeaderContext>()
+    const {setHeader, setHeaderButton} = useOutletContext<HeaderContext>()
     const [dmList, setDmList] = useState<DMInfo[]>([]) 
     const [showWindow, setShowWindow] = useState<boolean>(false)
  
@@ -57,6 +60,7 @@ export default function DMS(props: DMSProps) {
 
         (async () => {
             setHeader('Direct Messages')
+            setHeaderButton(<button onClick={handlePopup} >+</button>)
 
             const response = await fetch('/api/room', {
                 method: 'GET',
@@ -90,9 +94,10 @@ export default function DMS(props: DMSProps) {
 
     return (
         <div className='dms-container'>
-            <div>
-                <button onClick={handlePopup}>Add Friend</button>
-            </div>
+            {/* <a href="#dash-container">
+                <button className='add-dm' onClick={handlePopup}>+</button>
+
+            </a> */}
             {dms}
             {showWindow && <NewDMWindow handlePopup={handlePopup}/>}
             {showWindow && <div className='background-overlay'></div>}

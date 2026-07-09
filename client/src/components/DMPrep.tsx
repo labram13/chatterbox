@@ -72,10 +72,17 @@ export default function DMPrep() {
 
     }
 
+    function handleBackClick() {
+        navigate('/dashboard')
+    }
+
     // console.log(input)
     return (
         <div className='dm-page-container'>
-            <h1>{userInfo}</h1>
+            <div>
+                <button onClick={handleBackClick}>Back</button>
+                <h1>{userInfo}</h1>
+            </div>
             <div></div>
             <div className='user-input-section'>
                 <input className='user-input' onChange={handleInputChange}/>
