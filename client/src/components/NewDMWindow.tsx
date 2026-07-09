@@ -24,7 +24,7 @@ function User(props: User) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                user: user
+                user_id: user.user_id
             })
 
         })
@@ -33,9 +33,9 @@ function User(props: User) {
         console.log(responseJson.exists)
         if (responseJson.exists) {
 
-            navigate(`/${responseJson.room}`, {state: props.username})
+            navigate(`/${responseJson.room}`)
         } else {
-            navigate(`/new-dm/${props.user_id}`, {state: props.username})
+            navigate(`/new-dm/${props.user_id}`)
         }
 
         

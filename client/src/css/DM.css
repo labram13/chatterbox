@@ -53,3 +53,12 @@ h1 {
   
 }
 
+.user-input-section {
+    display: flex;
+    flex-direction:row;
+
+}
+
+.user-input{
+    flex-grow:1;
+}

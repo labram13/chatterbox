@@ -42,6 +42,19 @@ router.get('/', authenticateToken, async (req, res) => {
 
 })
 
+router.get('/:id', authenticateToken, async (req, res) => {
+    try {
+        const userInfo = await pool.query(`
+            SELECT user_id, username
+            FROM users
+            WHERE user_id = $1    
+            `, [req.params.id])
+        res.status(200).json({status: 'success', userInfo: userInfo})    
+    } catch (error) {
+        res.status(500).json({status: error})
+    }
+})
+
 router.post('/register', async (req, res) => {
 
 

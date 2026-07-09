@@ -18,8 +18,9 @@ interface DMProps {
 }
 
 export default function DM(props: DMProps) {
-    const location = useLocation()
-    const username = location.state ?? ''
+    // const location = useLocation()
+    // const username = location.state ?? ''
+    const [userInfo, setUserInfo] = useState<String>('') 
     const {id} = useParams();
     const navigate = useNavigate()
     const [messages, setMessages] = useState<Message[]>([])
@@ -42,6 +43,15 @@ export default function DM(props: DMProps) {
                 const responseJson = await response.json()
                 setMessages(responseJson.messages)
             }
+
+            const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
+                credentials: 'include',
+                method: 'GET'
+            })
+
+            const roomInfoJson = await roomInfo.json()
+            console.log(roomInfoJson.roomInfo.rows[0])
+            setUserInfo(roomInfoJson.roomInfo.rows[0].username)
         })()
 
         return () => {
@@ -116,7 +126,7 @@ export default function DM(props: DMProps) {
     
     return (
         <div className='dm-page-container'>
-            <h1>{username}</h1>
+            <h1>{userInfo}</h1>
             <div ref={ref} className='messages-container'>
                 {msgs}
             </div>

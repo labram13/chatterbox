@@ -2,6 +2,7 @@ import express from 'express'
 // import {roomCheck} from '../../middleware/room'
 import { authenticateToken } from '../../middleware/auth'
 import pool from '../../config/db'
+// import { roomCheck } from '../../middleware/room'
 const router = express()
 
 
@@ -19,7 +20,7 @@ router.post('/check', authenticateToken, async (req, res) => {
             WHERE m1.fk_user = $1
             AND m2.fk_user = $2 
             `,
-            [req.user?.user_id, req.body.user.user_id]
+            [req.user?.user_id, req.body.user_id]
         )
         
         // console.log(sameRoom.rows)
@@ -47,6 +48,9 @@ router.post('/check', authenticateToken, async (req, res) => {
 
 router.post('/', authenticateToken, async (req, res) => {
     console.log('hit post room')
+    // console.log(req.body)
+
+    // res.json({status: 'test'})
     
     try {
         const newRoom = await pool.query(
@@ -67,8 +71,19 @@ router.post('/', authenticateToken, async (req, res) => {
                 ($1, $2),
                 ($1, $3)
             `,
-            [newRoom.rows[0].room_id, req.user?.user_id, req.body.user.user_id]
+            [newRoom.rows[0].room_id, req.user?.user_id, req.body.user_id]
         )
+        // console.log(req.body.message);
+        const firstMessage = await pool.query(
+            `
+            INSERT INTO message (fk_room, context, sender)
+            VALUES
+                ($1, $2, $3)
+            `,
+            [newRoom.rows[0].room_id, req.body.message, req.user?.user_id]
+        )
+
+        console.log(firstMessage)
         res.json({status: 'success', room: newRoom.rows[0].room_id})
     } catch (error) {
         res.status(500).json({status: error})
@@ -96,6 +111,26 @@ router.get('/', authenticateToken, async (req, res) => {
         // console.log('dmlist', dmList.rows)
         res.status(200).json({status: 'success', dmList: dmList.rows})
         
+    } catch (error) {
+        res.status(500).json({status: error})
+    }
+})
+
+router.get('/roomInfo/:id', authenticateToken, async (req, res) => {
+    console.log(req.params.id)
+    try {
+        const roomInfo = await pool.query(`
+            SELECT u.username 
+            FROM room r
+            JOIN members m
+            ON r.room_id = m.fk_room
+            JOIN users u
+            on m.fk_user = u.user_id
+            WHERE r.room_id = $1
+            AND u.user_id != $2
+            `, [req.params.id, req.user?.user_id])
+        console.log(roomInfo.rows[0])
+        res.status(200).json({status: 'success', roomInfo: roomInfo})
     } catch (error) {
         res.status(500).json({status: error})
     }
