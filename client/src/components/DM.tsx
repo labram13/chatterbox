@@ -29,7 +29,7 @@ export default function DM(props: DMProps) {
 
     useEffect( () => {
         (async () => {
-            const roomInfo = await fetch(`/api/room/roomInfo/${id}`, {
+            const roomInfo = await fetch(`/api/room/room-info/${id}`, {
                 credentials: 'include',
                 method: 'GET'
             })

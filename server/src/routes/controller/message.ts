@@ -41,8 +41,7 @@ router.get('/:id', authenticateToken, roomAuthorization, async (req, res) => {
 
 router.post('/:id', authenticateToken, roomAuthorization, async (req, res) => {
     console.log('hit post message')
-    // console.log(req.params.id)
-    // console.log(req.body.message)
+
 
     try{
         const message = await pool.query(`
