@@ -116,7 +116,7 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 })
 
-router.get('/roomInfo/:id', authenticateToken, async (req, res) => {
+router.get('/room-info/:id', authenticateToken, async (req, res) => {
     console.log(req.params.id)
     try {
         const roomInfo = await pool.query(`

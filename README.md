@@ -54,23 +54,30 @@ A full-stack chat chat application with a goal of sending messages to individual
 ### API Endpoints
 
 #### User
-- POST /register
+- POST user/register
     - Registers new user
     - Generates Access token and Refresh token
     - Adds refresh token to DB
     - Sends access and refresh token to user via cookie
-- POST /login
+- POST user/login
     - Validates user credentials
     - Sends JWT token in cookie to client
 
-- POST /verify
+- POST user/verify
     - uses authenticate middleware to verify users tokens
+
+- GET user/:id
+    - grab user information
 
 ### ROOM
 - POST /room
-    - add new room and members to it
+    - add new room and members to it with first message
 - GET /room 
     - retrieve all Direct Message rooms user is part of
+- POST /room/check
+    - checks if user and recipient have a room together that exists
+- GET /room-info/:id
+
 
 #### Message
 - POST /message/:id
